@@ -1,0 +1,35 @@
+﻿@page
+@model BookList2.Pages.Booklist.CreateModel
+@{
+}
+<br />
+<h2 class="text-enfo">Create New Book</h2>
+<hr />
+<div class="border container" style="padding:30px">
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Book.Name"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Book.Name" />
+            </div>
+             <div class="col-4 text-right">
+                <label asp-for="Book.Author"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Book.Author" />
+            </div>
+             <div class="col-4 text-right">
+                <label asp-for="Book.CreateDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Book.CreateDate" />
+            </div>
+        </div>
+        <div class="col-6">
+            <input type="submit" value="save" class="btn btn-outline-success" />
+            <a class="btn btn-link" asp-page="Index">Back to Booklist</a>
+        </div>
+    </form>
+</div>
