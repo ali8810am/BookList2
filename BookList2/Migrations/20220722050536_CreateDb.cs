@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookList2.Migrations
 {
-    public partial class AddDb : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

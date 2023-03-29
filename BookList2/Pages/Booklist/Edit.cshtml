@@ -1,13 +1,14 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model BookList2.Pages.Booklist.CreateModel
+@model BookList2.Pages.Booklist.EditModel
 @{
 }
 <br />
-<h2 class="text-enfo">Create New Book</h2>
+<h2 class="text-enfo">Edit Book</h2>
 <hr />
 <div class="border container" style="padding:30px">
     <form method="post">
+        <input type="hidden" asp-for="Book.Id" />
             <div asp-validation-summary="All"></div>
         <div class="form-group row">
             <div class="col-4 text-right">

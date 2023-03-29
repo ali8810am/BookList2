@@ -8,7 +8,7 @@ namespace BookList2.Model
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Please enter books name")]
         [MaxLength(300)]
         public string Name { get; set; }
 
@@ -16,7 +16,7 @@ namespace BookList2.Model
         public string Author { get; set; }
 
         [Required]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }= DateTime.Now;
         //[Key]
         //public int ID { get; set; }
         //[Required]

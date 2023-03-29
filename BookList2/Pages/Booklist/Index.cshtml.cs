@@ -20,8 +20,24 @@ namespace BookList2.Pages.Booklist
         public string PageName { get; set; }
         public void OnGet()
         {
+
             PageName = "Book List";
             Books = _context.Books.ToList();
+        }
+
+        public async Task<IActionResult> OnGetDelete(int ID)
+        {
+            var book = _context.Books.Find(ID);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
         }
     }
 }

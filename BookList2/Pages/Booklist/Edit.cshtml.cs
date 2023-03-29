@@ -1,29 +1,28 @@
 using BookList2.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
 
 namespace BookList2.Pages.Booklist
 {
-    public class CreateModel : PageModel
+    public class EditModel : PageModel
     {
-        private ApplicationDbContext _context;
-        public CreateModel(ApplicationDbContext context)
+        private ApplicationDbContext _dbContext;
+        public EditModel(ApplicationDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
         [BindProperty]
         public Book Book { get; set; }
-        public void OnGet()
+        public void OnGet(int ID)
         {
-         
+            Book=_dbContext.Books.Find(ID);
         }
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
-                _context.Books.Add(Book);
-                _context.SaveChanges();
+                _dbContext.Books.Update(Book);
+                _dbContext.SaveChanges();
                 return RedirectToPage("Index");
             }
             else
@@ -31,6 +30,5 @@ namespace BookList2.Pages.Booklist
                 return Page();
             }
         }
-
     }
 }
