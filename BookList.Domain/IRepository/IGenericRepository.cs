@@ -1,8 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Api.Models;
-using X.PagedList;
 
-namespace Api.IRepository
+
+namespace BookList.Domain.IRepository
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -16,11 +15,11 @@ namespace Api.IRepository
             bool OrderByDescending = false,
             List<string> includes = null);
 
-        Task<IPagedList<T>> GetAll(
-            RequestParameters parameters,
-            Expression<Func<T, bool>>? expression = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            bool OrderByDescending = false,
-            List<string> includes = null);
+        //Task<IPagedList<T>> GetAll(
+        //    RequestParameters parameters,
+        //    Expression<Func<T, bool>>? expression = null,
+        //    Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        //    bool OrderByDescending = false,
+        //    List<string> includes = null);
     }
 }

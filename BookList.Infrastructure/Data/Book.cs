@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Data
+namespace BookList.Infrastructure.Data
 {
     public class Book:BaseDomainObject
     {

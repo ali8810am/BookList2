@@ -1,4 +1,4 @@
-﻿namespace Api.Data
+﻿namespace BookList.Infrastructure.Data
 {
     public abstract class BaseDomainObject
     {

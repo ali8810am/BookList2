@@ -20,4 +20,9 @@
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookList.Domain\BookList.Domain.csproj" />
+    <ProjectReference Include="..\BookList.Persistance\BookList.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>

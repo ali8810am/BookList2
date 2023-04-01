@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Api.Migrations
+namespace BookList.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class createtbls : Migration

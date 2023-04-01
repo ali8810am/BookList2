@@ -1,8 +1,10 @@
-﻿using Api.Data;
-using Api.IRepository;
+﻿
+using BookList.Domain.IRepository;
+using BookList.Persistance.Data;
+using BookList.Persistance.Data;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Api.Repository
+namespace BookList.Persistance.Repository
 {
     public class UnitOfWork:IUnitOfWork
     {
@@ -20,6 +22,8 @@ namespace Api.Repository
         }
 
         public IGenericRepository<Book> Books => _books ??= new GenericRepository<Book>(_context);
+
+        public IBookRepository BookRepository { get; }
 
         public async Task Save()
         {

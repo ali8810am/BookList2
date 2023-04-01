@@ -1,11 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Api.Data;
-using Api.IRepository;
-using Api.Models;
+using BookList.Domain.IRepository;
+using BookList.Persistance.Data;
 using Microsoft.EntityFrameworkCore;
-using X.PagedList;
 
-namespace Api.Repository
+
+namespace BookList.Persistance.Repository
 {
     public class GenericRepository<T>:IGenericRepository<T> where T :class
     {
@@ -77,36 +76,36 @@ namespace Api.Repository
             }
         }
 
-        public async Task<IPagedList<T>> GetAll(RequestParameters parameters, Expression<Func<T, bool>>? expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            bool OrderByDescending = false, List<string> includes = null)
-        {
-            IQueryable<T> query = _db;
-            if (includes != null)
-            {
-                query = includes.Aggregate(query, (current, parameter) => current.Include(parameter));
-            }
-            if (orderBy != null)
-            {
-                if (OrderByDescending = false)
-                {
-                    query = query.OrderBy(expression);
-                }
-                else
-                {
-                    query = query.OrderByDescending(expression);
+        //public async Task<IPagedList<T>> GetAll(RequestParameters parameters, Expression<Func<T, bool>>? expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        //    bool OrderByDescending = false, List<string> includes = null)
+        //{
+        //    IQueryable<T> query = _db;
+        //    if (includes != null)
+        //    {
+        //        query = includes.Aggregate(query, (current, parameter) => current.Include(parameter));
+        //    }
+        //    if (orderBy != null)
+        //    {
+        //        if (OrderByDescending = false)
+        //        {
+        //            query = query.OrderBy(expression);
+        //        }
+        //        else
+        //        {
+        //            query = query.OrderByDescending(expression);
 
-                }
-            }
+        //        }
+        //    }
 
-            if (expression == null)
-            {
-                return await query.AsNoTracking().ToPagedListAsync(parameters.PageNumber, parameters.PageSize);
-            }
-            else
-            {
-                return await query.AsNoTracking().Where(expression).ToPagedListAsync(parameters.PageNumber, parameters.PageSize);
+        //    if (expression == null)
+        //    {
+        //        return await query.AsNoTracking().ToPagedListAsync(parameters.PageNumber, parameters.PageSize);
+        //    }
+        //    else
+        //    {
+        //        return await query.AsNoTracking().Where(expression).ToPagedListAsync(parameters.PageNumber, parameters.PageSize);
 
-            }
-        }
+        //    }
+        //}
     }
 }

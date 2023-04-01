@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BookList.Persistance.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design.Internal;
 
-namespace Api.Data
+namespace BookList.Persistance.Data
 {
     public class ApplicationDbContext: IdentityDbContext<ApiUser>
     {
