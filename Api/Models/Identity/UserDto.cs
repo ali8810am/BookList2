@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Models
+namespace Api.Models.Identity
 {
-    public class LoginDto
+    public class LoginRequestDto
     {
 
         [Required]
@@ -14,7 +14,20 @@ namespace Api.Models
         public string Password { get; set; }
 
     }
-    public class UserDto : LoginDto
+
+    public class LoginResponseDto:RegisterResponseDto
+    {
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Token { get; set; }
+    }
+
+    public class RegisterResponseDto
+    {
+        public string UserId { get; set; }
+    }
+    public class RegisterRequestDto:LoginRequestDto
     {
         [Required]
         [StringLength(maximumLength: 50, MinimumLength = 2)]
