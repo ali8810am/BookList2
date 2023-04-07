@@ -1,7 +1,10 @@
 using Api;
 using Api.Data;
 using Api.IRepository;
+using Api.Profile;
+using Api.Repository;
 using Api.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,20 +20,31 @@ builder.Services.AddControllers(config =>
         Duration = 120
     });
 });
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("BookListConnectionString"));
 });
 
-builder.Services.ConfigureSwaggerAuthenticationBearer();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwaggerAuthenticationBearer();
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 
 builder.Services.AddScoped<IAuthManager, AuthManager>();
-//builder.Services.AddTransient<IUnitOfWork, IUnitOfWork>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBorrowAllocationRepository, BorrowAllocationRepository>();
+builder.Services.AddScoped<IBorrowRequestRepository, BorrowRequestRepository>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
+
+
 
 
 var app = builder.Build();

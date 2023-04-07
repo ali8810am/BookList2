@@ -9,6 +9,7 @@ namespace Api.IRepository
         Task Add(T entity);
         void Update(T entity);
         Task Delete(int id);
+        Task<bool> Exist(Expression<Func<T, bool>> expression = null);
         Task<T> Get(Expression<Func<T, bool>> expression = null, List<string> includes = null);
         Task<IList<T>> GetAll(
             Expression<Func<T, bool>>? expression = null,

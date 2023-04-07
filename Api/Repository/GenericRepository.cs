@@ -36,6 +36,11 @@ namespace Api.Repository
              _context.Remove(entity);
         }
 
+        public async Task<bool> Exist(Expression<Func<T, bool>> expression = null)
+        {
+            return await _db.AnyAsync(expression);
+        }
+
         public async Task<T> Get(Expression<Func<T, bool>> expression = null, List<string> includes = null)
         {
             IQueryable<T> query = _db;

@@ -15,6 +15,7 @@ namespace Api
 {
     public static class ServiceExtensions
     {
+
         public static void ConfigureIdentityServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<ApiUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()

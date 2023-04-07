@@ -7,7 +7,7 @@ namespace Api.Models
     public class CreateEmployeeDto
     {
         public int UserId { get; set; }
-        public UserDto User { get; set; }
+     
         public DateTime DateHired { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
@@ -17,5 +17,6 @@ namespace Api.Models
     public class EmployeeDto:CreateEmployeeDto
     {
         public int EmployeeId { get; set; }
+        public UserDto User { get; set; }
     }
 }

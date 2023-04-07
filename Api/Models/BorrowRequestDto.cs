@@ -11,7 +11,7 @@ namespace Api.Models
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime EndDate { get; set; }
-        public BookDto Book { get; set; }
+       
         public int BookId { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
@@ -26,5 +26,6 @@ namespace Api.Models
     public class BorrowRequestDto:CreateBorrowRequestDto
     {
         public int RequestId { get; set; }
+        public BookDto Book { get; set; }
     }
 }

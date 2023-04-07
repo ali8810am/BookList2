@@ -2,8 +2,12 @@
 
 namespace Api.IRepository
 {
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<Book> Books { get; }
+        IBookRepository Books { get; }
+        IBorrowAllocationRepository BorrowAllocations { get; }
+        IBorrowRequestRepository BorrowRequests { get; }
+        Task Save();
+
     }
 }

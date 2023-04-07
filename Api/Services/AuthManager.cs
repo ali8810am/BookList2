@@ -35,9 +35,9 @@ namespace Api.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+        private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, IEnumerable<Claim> claims)
         {
-            var jwtSetting = _config.GetSection("JWT");
+            var jwtSetting = _config.GetSection("JwtSettings");
             var token = new JwtSecurityToken(
                 issuer: jwtSetting.GetSection("Issuer").Value,
                 claims: claims,
@@ -47,17 +47,31 @@ namespace Api.Services
             return token;
         }
 
-        private async Task<List<Claim>> GetClaims()
+        private async Task<IEnumerable<Claim>> GetClaims()
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, _user.UserName)
-            };
+            var userClaims = await _userManager.GetClaimsAsync(_user);
             var roles = await _userManager.GetRolesAsync(_user);
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
+
+            var roleClaims = roles.Select(q => new Claim(ClaimTypes.Role, q)).ToList();
+
+            var claims = new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, _user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, _user.Email),
+                    new Claim(CustomClaimTypes.UId, _user.Id)
+                }
+                .Union(userClaims)
+                .Union(roleClaims);
+            //var claims = new List<Claim>
+            //{
+            //    new Claim(ClaimTypes.Name, _user.UserName)
+            //};
+            //var roles = await _userManager.GetRolesAsync(_user);
+            //foreach (var role in roles)
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, role));
+            //}
             return claims;
         }
 
@@ -67,36 +81,6 @@ namespace Api.Services
             var secret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
-
-        //public async Task<JwtSecurityToken> CreateToken()
-        //{
-        //    var userClaims = await _userManager.GetClaimsAsync(_user);
-        //    var roles = await _userManager.GetRolesAsync(_user);
-
-        //    var roleClaims = roles.Select(q => new Claim(ClaimTypes.Role, q)).ToList();
-
-        //    var claims = new[]
-        //        {
-        //            new Claim(JwtRegisteredClaimNames.Sub, _user.UserName),
-        //            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        //            new Claim(JwtRegisteredClaimNames.Email, _user.Email),
-        //            new Claim(CustomClaimTypes.UId, _user.Id)
-        //        }
-        //        .Union(userClaims)
-        //        .Union(roleClaims);
-
-        //    var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
-
-        //    var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
-        //    var jwtSecurityToken = new JwtSecurityToken(
-        //        issuer: _jwtSettings.Issuer,
-        //        audience: _jwtSettings.Audience,
-        //        claims: claims,
-        //        expires: DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
-        //        signingCredentials: signingCredentials);
-        //    return jwtSecurityToken;
-        //}
 
         public async Task<bool> ValidateUser(LoginRequestDto user)
         {
@@ -128,6 +112,7 @@ namespace Api.Services
                     UserName = _user.UserName
                 };
                 return response;
+
             }
             catch (BadRequestException ex)
             {
@@ -171,6 +156,11 @@ namespace Api.Services
 
                 throw new BadRequestException($"{str}");
             }
+        }
+
+        public string GetCurrentUserName()
+        {
+            return _user.UserName;
         }
     }
 }

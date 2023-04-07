@@ -8,5 +8,7 @@ namespace Api.Services
     {
         Task<LoginResponseDto> Login(LoginRequestDto request);
         Task<RegisterResponseDto> Register(RegisterRequestDto request);
+        string GetCurrentUserName();
+
     }
 }

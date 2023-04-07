@@ -27,6 +27,7 @@ namespace Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginDto)
         {
+
             _logger.LogInformation($"login attemped for {loginDto.UserName}");
             var response =await _authManager.Login(loginDto);
             return Accepted(response);
