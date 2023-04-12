@@ -10,12 +10,12 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BorrowAllocationDto : ControllerBase
+    public class BorrowAllocationController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public BorrowAllocationDto(IUnitOfWork unitOfWork, IMapper mapper)
+        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -23,19 +23,19 @@ namespace Api.Controllers
 
         // GET: api/<BorrowAllocationsController>
         [HttpGet]
-        public async Task<ActionResult<IList<BorrowAllocationDto>>> Get()
+        public async Task<ActionResult<IList<BorrowAllocationController>>> Get()
         {
             var requests = await _unitOfWork.BorrowAllocations.GetAll();
 
-            return Ok(_mapper.Map<IList<BorrowAllocationDto>>(requests));
+            return Ok(_mapper.Map<IList<BorrowAllocationController>>(requests));
         }
 
         // GET api/<BorrowAllocationsController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BorrowAllocationDto>> Get(int id)
+        public async Task<ActionResult<BorrowAllocationController>> Get(int id)
         {
             var borrowAllocation = await _unitOfWork.BorrowAllocations.Get(b => b.Id == id);
-            return Ok(_mapper.Map<BorrowAllocationDto>(borrowAllocation));
+            return Ok(_mapper.Map<BorrowAllocationController>(borrowAllocation));
         }
 
         // POST api/<BorrowAllocationsController>

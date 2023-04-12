@@ -1,6 +1,6 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@model View.Pages.Booklist.IndexModel
+@model View.Pages.Book.IndexModel
 @{
 }
 <div class="container row p-0 m-0">
@@ -8,7 +8,7 @@
         <h2 class="text-info">BookList</h2>
     </div>
     <div class="col-3">
-        <a class="btn btn-info form-control text-light" asp-page="Upsert">
+        <a class="btn btn-info form-control text-light" asp-page="Create">
             Create New Book
         </a>
     </div>
@@ -39,7 +39,7 @@
                          </td>
                          
                          <td>
-                             <a asp-page="Upsert" asp-route-ID="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                             <a asp-page="Edit" asp-route-ID="@item.Id" class="btn btn-warning btn-sm">Edit</a>
                              <a asp-page-handler="Delete" asp-route-ID="@item.Id" class="btn btn-danger btn-sm">Delete</a>
                          </td>
                      </tr>   

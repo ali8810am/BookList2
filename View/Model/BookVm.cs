@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace View.Model
 {
-    public class Book
+    public class CreateBookVm
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         [Required(ErrorMessage ="Please enter books name")]
         [MaxLength(300)]
@@ -17,15 +16,11 @@ namespace View.Model
 
         [Required]
         public DateTime CreateDate { get; set; }= DateTime.Now;
-        //[Key]
-        //public int ID { get; set; }
-        //[Required]
-        //[MaxLength(200)]
-        //public string Name { get; set; }
-        //[Required]
-        //[MaxLength(200)]
-        //public string Auther { get; set; }
-        //public DateTime CreateDate { get; set; }
 
+    }
+
+    public class BookVm:CreateBookVm
+    {
+        public int Id { get; set; }
     }
 }

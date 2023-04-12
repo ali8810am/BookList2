@@ -25,17 +25,17 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginDto)
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto loginDto)
         {
 
             _logger.LogInformation($"login attemped for {loginDto.UserName}");
             var response =await _authManager.Login(loginDto);
-            return Accepted(response);
+            return Ok(response);
 
         }
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto userDto)
+        public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto userDto)
         {
             _logger.LogInformation($"registration attemped for {userDto.FirstName}  {userDto.LastName}");
             var response = await _authManager.Register(userDto);

@@ -1,38 +1,34 @@
-﻿using Api.Data;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Models
+namespace View.Model
 {
-    public class CreateBorrowAllocationDto
+    public class CreateBorrowAllocationVm
     {
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime BorrowStartDate { get; set; }
+
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime BorrowEndDate { get; set; }
-      
+
         public int BookId { get; set; }
+
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime DateApproved { get; set; }
-  
+
         public string EmployeeId { get; set; }
 
         public string CustomerId { get; set; }
         public bool IsReturned { get; set; }
-        [DataType(DataType.DateTime)]
-        public DateTime? DateReturned { get; set; }
-        public string? CreatedBy { get; set; }
-       
+        [DataType(DataType.DateTime)] public DateTime? DateReturned { get; set; }
+        public string? CreateBy { get; set; }
     }
 
-    public class BorrowAllocationDto:CreateBorrowAllocationDto
+    public class BorrowAllocationVm : CreateBorrowAllocationVm
     {
         public int AllocationId { get; set; }
-        public BookDto Book { get; set; }
-        public Employee Employee { get; set; }
-        public Customer Customer { get; set; }
         public string? UpdatedBy { get; set; }
     }
 }
