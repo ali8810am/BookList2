@@ -10,26 +10,23 @@ namespace View.Pages.Book
     public class CreateModel : PageModel
     {
         private readonly IBookService _bookService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateModel(IBookService bookService, IHttpContextAccessor httpContextAccessor)
+
+        public CreateModel(IBookService bookService)
         {
             _bookService = bookService;
-            _httpContextAccessor = httpContextAccessor;
         }
         [BindProperty]
         public CreateBookVm Book { get; set; }
-        public IActionResult OnGet()
+        public void OnGet()
         {
-            return Page();
         }
         public async Task<IActionResult> OnPost()
         {
-            var name = _httpContextAccessor.HttpContext.User.Identity.Name;
             if (ModelState.IsValid)
             {
                 await _bookService.CreateBook(Book);
-                return LocalRedirect("Index");
+                return LocalRedirect("/Book/Index");
             }
             else
             {

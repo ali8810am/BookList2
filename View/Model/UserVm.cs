@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace View.Model
 {
@@ -29,5 +30,24 @@ namespace View.Model
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
+    }
+
+    public class EmployeeVm
+    {
+        public int EmployeeId { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public UserRegisterVm User { get; set; }
+        public DateTime DateHired { get; set; }
+        public string Duty { get; set; }
+    }
+    public class CustomerVm
+    {
+        public int CustomerId { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public UserRegisterVm User { get; set; }
+        public DateTime DateMembered { get; set; }
+        public int MembershipRate { get; set; }
     }
 }

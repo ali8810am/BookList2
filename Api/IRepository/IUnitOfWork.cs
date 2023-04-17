@@ -7,6 +7,8 @@ namespace Api.IRepository
         IBookRepository Books { get; }
         IBorrowAllocationRepository BorrowAllocations { get; }
         IBorrowRequestRepository BorrowRequests { get; }
+        ICustomerRepository Customers { get; }
+        IEmployeeRepository Employee { get; }
         Task Save();
 
     }

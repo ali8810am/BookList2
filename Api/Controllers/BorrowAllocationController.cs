@@ -2,9 +2,11 @@
 using Api.Exceptions;
 using Api.IRepository;
 using Api.Models;
+using Api.Models.QueryParameter;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace Api.Controllers
 {
@@ -23,19 +25,44 @@ namespace Api.Controllers
 
         // GET: api/<BorrowAllocationsController>
         [HttpGet]
-        public async Task<ActionResult<IList<BorrowAllocationController>>> Get()
+        public async Task<ActionResult<IList<BorrowAllocationDto>>> GetAll([FromQuery] BorrowAllocationQueryParameter? parameter)
         {
-            var requests = await _unitOfWork.BorrowAllocations.GetAll();
+            if (parameter.WantAll == true)
+            {
+                var allAllocations = await _unitOfWork.BorrowAllocations.GetAll(null, parameter.includes);
+                return Ok(_mapper.Map<IList<BorrowAllocationDto>>(allAllocations));
+            }
 
-            return Ok(_mapper.Map<IList<BorrowAllocationController>>(requests));
+            if (parameter.CreatedBy != null || parameter.UpdatedBy != null || parameter.CustomerId != null || parameter.EmployeeId != null
+                || parameter.BookId != null || parameter.BorrowStartDate != null || parameter.DateApproved != null || parameter.BorrowEndDate != null
+                || parameter.IsReturned != null || parameter.DateReturned != null)
+            {
+                var filteredBooks = _unitOfWork.BorrowAllocations.GetFiltered(parameter.includes)
+                    .Where(b => b.CreatedBy==parameter.CreatedBy || string.IsNullOrWhiteSpace(parameter.CreatedBy))
+                    .Where(b => b.UpdatedBy == parameter.UpdatedBy || string.IsNullOrWhiteSpace(parameter.UpdatedBy))
+                    .Where(b => b.CustomerId.ToString() == parameter.CustomerId || string.IsNullOrWhiteSpace(parameter.CustomerId))
+                    .Where(b => b.EmployeeId.ToString() == parameter.EmployeeId || string.IsNullOrWhiteSpace(parameter.EmployeeId))
+                    .Where(b => b.BookId == parameter.BookId || string.IsNullOrWhiteSpace(parameter.BookId.ToString()))
+                    .Where(b => b.BorrowStartDate >= parameter.BorrowStartDate )
+                    .Where(b => b.BorrowEndDate <= parameter.BorrowEndDate)
+                    .Where(b => b.DateApproved.AddDays(1) >= parameter.DateApproved&& b.DateApproved.AddDays(-1)<= parameter.DateApproved)
+                    .Where(b => b.DateReturned<= parameter.DateReturned)
+                    .Where(b => b.IsReturned == parameter.IsReturned)
+                    .ToPagedList(parameter.RequestParameters.PageNumber,
+                        parameter.RequestParameters.PageSize);
+                return Ok(_mapper.Map<IList<BookDto>>(filteredBooks));
+            }
+
+            var books = await _unitOfWork.Books.GetAll(parameter.RequestParameters, null, parameter.includes);
+            return Ok(_mapper.Map<IList<BookDto>>(books));
         }
 
         // GET api/<BorrowAllocationsController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BorrowAllocationController>> Get(int id)
+        public async Task<ActionResult<BorrowAllocationDto>> Get(int id)
         {
             var borrowAllocation = await _unitOfWork.BorrowAllocations.Get(b => b.Id == id);
-            return Ok(_mapper.Map<BorrowAllocationController>(borrowAllocation));
+            return Ok(_mapper.Map<BorrowAllocationDto>(borrowAllocation));
         }
 
         // POST api/<BorrowAllocationsController>

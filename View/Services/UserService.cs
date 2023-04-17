@@ -78,5 +78,11 @@ namespace View.Services
             claims.Add(new Claim(ClaimTypes.Name, tokenContent.Subject));
             return claims;
         }
+        public string GetCurrentUserName()
+        {
+            var name = _contextAccessor.HttpContext.User.Identity.Name ?? "NotAuthenticated";
+
+            return name;
+        }
     }
 }

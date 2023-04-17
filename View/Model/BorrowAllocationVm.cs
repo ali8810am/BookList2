@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using View.Services.Base;
 
 namespace View.Model
 {
@@ -28,6 +29,9 @@ namespace View.Model
 
     public class BorrowAllocationVm : CreateBorrowAllocationVm
     {
+        public EmployeeVm Employee { get; set; }
+        public CustomerVm Customer { get; set; }
+        public Book Book { get; set; }
         public int AllocationId { get; set; }
         public string? UpdatedBy { get; set; }
     }

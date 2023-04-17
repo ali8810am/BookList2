@@ -1,0 +1,67 @@
+﻿@page
+@model View.Pages.BorrowRequest.IndexModel
+@{
+}
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">BookList</h2>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-light" asp-page="/Book/Create">
+            Create New Book
+        </a>
+    </div>
+
+</div>
+<div class="col-12 p-3 border mt-3 ">
+    <form method="post">
+        @if (Model.Requests.Any())
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault()."></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().StartDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().EndDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().RequestComments"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().Approved"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().DateRequested"></label>
+                    </th>
+                </tr>
+                
+                @foreach(var item in Model.Requests)
+                {
+                    <tr>
+                        <td>
+                            @item.Customer.User.UserName
+                        </td>
+                        <td>
+                            @item.StartDate
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowRequest/Create" asp-route-bookId="@item.RequestId" class="btn btn-warning btn-sm">Borrow</a>
+                        </td>
+                        <td>
+                            <a asp-page="/Book/Edit" asp-route-id="@item.RequestId" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-page-handler="Delete" asp-route-id="@item.RequestId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>   
+                }
+            </table>
+        }
+        else
+        {
+            <p>There is no book to show. Please Enter Any Book</p>
+        }
+    </form>
+</div>

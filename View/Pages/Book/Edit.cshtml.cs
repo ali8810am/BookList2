@@ -17,13 +17,13 @@ namespace View.Pages.Booklist
             _bookService = bookService;
             _mapper = mapper;
         }
-
+        [BindProperty]
+        public int BookId { get; set; }
         [BindProperty]
         public CreateBookVm Book { get; set; }
-        private int _bookId;
         public async Task<IActionResult> OnGet(int id)
         {
-            _bookId = id;
+            BookId = id;
             var book = await _bookService.GetBook(id);
             if (book == null)
                 return NotFound();
@@ -34,8 +34,8 @@ namespace View.Pages.Booklist
         {
             if (ModelState.IsValid)
             {
-                await _bookService.UpdateBook(_bookId, Book);
-                return LocalRedirect("Index");
+                await _bookService.UpdateBook(BookId, Book);
+                return LocalRedirect("/Book/Index");
             }
             else
             {

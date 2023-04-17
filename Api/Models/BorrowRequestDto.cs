@@ -11,7 +11,9 @@ namespace Api.Models
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime EndDate { get; set; }
-       
+        [Required]
+        public int CustomerId { get; set; }
+        [Required]
         public int BookId { get; set; }
         [Required]
         [DataType(DataType.DateTime)]
@@ -28,6 +30,7 @@ namespace Api.Models
     {
         public int RequestId { get; set; }
         public BookDto Book { get; set; }
+        public CustomerDto Customer { get; set; }
         public string? UpdatedBy { get; set; }
     }
 }

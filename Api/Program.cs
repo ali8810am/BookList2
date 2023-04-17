@@ -39,6 +39,8 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBorrowAllocationRepository, BorrowAllocationRepository>();
 builder.Services.AddScoped<IBorrowRequestRepository, BorrowRequestRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 

@@ -5,13 +5,13 @@ using View.Services.Base;
 
 namespace View.Services
 {
-    public class BorrowAllocationService : IBorrowAllocationService
+    public class BorrowAllocationService : BaseHttpService,IBorrowAllocationService
     {
         private readonly ILocalStorageService _storageService;
         private readonly IMapper _mapper;
         private readonly IClient _client;
 
-        public BorrowAllocationService(ILocalStorageService storageService, IMapper mapper, IClient client)
+        public BorrowAllocationService(ILocalStorageService localStorageService, IClient client, ILocalStorageService storageService, IMapper mapper) : base(localStorageService, client)
         {
             _storageService = storageService;
             _mapper = mapper;
@@ -33,6 +33,7 @@ namespace View.Services
         public async Task<Response<int>> CreateBorrowAllocation(CreateBorrowAllocationVm borrowAllocation)
         {
             var borrowAllocationDto = _mapper.Map<CreateBorrowAllocationDto>(borrowAllocation);
+            AddBearerToken();
             await _client.BorrowAllocationPOSTAsync(borrowAllocationDto);
             return new Response<int>
             {
@@ -42,6 +43,7 @@ namespace View.Services
         public async Task<Response<int>> UpdateBorrowAllocation(BorrowAllocationVm borrowAllocation)
         {
             var borrowAllocationDto = _mapper.Map<CreateBorrowAllocationDto>(borrowAllocation);
+            AddBearerToken();
             await _client.BorrowAllocationPUTAsync(borrowAllocation.AllocationId, borrowAllocationDto);
             return new Response<int> { };
         }
@@ -49,6 +51,7 @@ namespace View.Services
         public async Task<Response<int>> DeleteBorrowAllocation(int id)
         {
             await _client.BorrowAllocationDELETEAsync(id);
+            AddBearerToken();
             return new Response<int> { };
         }
     }

@@ -21,7 +21,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     options.LoginPath = new PathString("/user/login");
 }); ;
 builder.Services.AddRazorPages();
-builder.Services.AddHttpClient<IClient,Client>("MyWebApi", client =>
+builder.Services.AddHttpClient<IClient,Client>( client =>
 {
     client.BaseAddress = new Uri("https://localhost:7043");
 });
@@ -44,6 +44,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCookiePolicy();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

@@ -3,6 +3,7 @@ using Api.Data;
 using Api.IRepository;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using X.PagedList;
 
 namespace Api.Repository
@@ -46,60 +47,47 @@ namespace Api.Repository
             IQueryable<T> query = _db;
             if (includes!=null)
             {
-                query = includes.Aggregate(query, (current, parameter) => current.Include(parameter));
+                foreach (var property in includes)
+                {
+                    query = query.Include(property);
+                }
             }
             return await query.AsNoTracking().FirstOrDefaultAsync(expression);
         }
 
-        public async Task<IList<T>> GetAll(Expression<Func<T, bool>>? expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, bool OrderByDescending = false, List<string> includes = null)
+        public async Task<IList<T>> GetAll(Expression<Func<T, bool>>? expression = null,
+            List<string> includes = null)
         {
             IQueryable<T> query = _db;
             if (includes != null)
             {
-                query = includes.Aggregate(query, (current, parameter) => current.Include(parameter));
-            }
-            if (orderBy != null)
-            {
-                if (OrderByDescending = false)
+                foreach (var property in includes)
                 {
-                    query = query.OrderBy(expression);
-                }
-                else
-                {
-                    query = query.OrderByDescending(expression);
-
+                    query = query.Include(property);
                 }
             }
-
             if (expression == null)
             {
                 return await query.AsNoTracking().ToListAsync();
             }
             else
             {
-                return await query.AsNoTracking().Where(expression).ToListAsync();
+
+                return await query.AsNoTracking().Where(expression).Where(expression).ToListAsync();
 
             }
         }
 
-        public async Task<IPagedList<T>> GetAll(RequestParameters parameters, Expression<Func<T, bool>>? expression = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            bool OrderByDescending = false, List<string> includes = null)
+        public async Task<IPagedList<T>> GetAll(RequestParameters parameters,
+            Expression<Func<T, bool>>? expression = null,
+            List<string> includes = null)
         {
             IQueryable<T> query = _db;
             if (includes != null)
             {
-                query = includes.Aggregate(query, (current, parameter) => current.Include(parameter));
-            }
-            if (orderBy != null)
-            {
-                if (OrderByDescending = false)
+                foreach (var property in includes)
                 {
-                    query = query.OrderBy(expression);
-                }
-                else
-                {
-                    query = query.OrderByDescending(expression);
-
+                    query = query.Include(property);
                 }
             }
 
@@ -112,6 +100,21 @@ namespace Api.Repository
                 return await query.AsNoTracking().Where(expression).ToPagedListAsync(parameters.PageNumber, parameters.PageSize);
 
             }
+        }
+
+        public  IQueryable<T> GetFiltered( List<string> includes = null)
+        {
+            IQueryable<T> query = _db;
+            if (includes != null)
+            {
+                foreach (var property in includes)
+                {
+                    query = query.Include(property);
+                }
+            }
+            return  query.AsNoTracking();
+
+            
         }
     }
 }

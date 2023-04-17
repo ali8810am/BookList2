@@ -35,8 +35,9 @@ namespace View.Services.Base
         {
             if (_localStorageService.Exists("token"))
             {
+                var token = _localStorageService.GetStorageValue<string>("token");
                 _client.HttpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue("Bearer", _localStorageService.GetStorageValue<string>("token"));
+                    new AuthenticationHeaderValue("Bearer",token);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace View.Model
 {
@@ -19,14 +20,18 @@ namespace View.Model
         public DateTime DateRequested { get; set; }
 
         [StringLength(250, MinimumLength = 2)] public string RequestComments { get; set; }
-        public bool? Approved { get; set; }
-        public bool Cancelled { get; set; }
+        public bool Approved { get; set; }=false;
+        public bool Cancelled { get; set; } = false;
         public string? CreatedBy { get; set; }
+        public int CustomerId { get; set; }
+     
     }
 
     public class BorrowRequestVm : CreateBorrowRequestVm
     {
         public int RequestId { get; set; }
         public string? UpdatedBy { get; set; }
+        [ForeignKey("CustomerId")]
+        public CustomerVm? Customer { get; set; }
     }
 }

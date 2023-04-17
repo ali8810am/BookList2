@@ -26,7 +26,7 @@ namespace View.Pages.Book
             if (book == null)
                 return NotFound();
             await _bookService.DeleteBook(id);
-            return RedirectToAction("Index");
+            return RedirectToPage("/Book/Index");
         }
     }
 }
