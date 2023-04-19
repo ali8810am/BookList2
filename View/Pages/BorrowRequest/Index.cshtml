@@ -20,9 +20,6 @@
             <table class="table table-striped border">
                 <tr class="table-secondary">
                     <th>
-                        <label asp-for="Requests.FirstOrDefault()."></label>
-                    </th>
-                    <th>
                         <label asp-for="Requests.FirstOrDefault().StartDate"></label>
                     </th>
                     <th>
@@ -48,6 +45,7 @@
                         <td>
                             @item.StartDate
                         </td>
+                        
                         <td>
                             <a asp-page="/BorrowRequest/Create" asp-route-bookId="@item.RequestId" class="btn btn-warning btn-sm">Borrow</a>
                         </td>

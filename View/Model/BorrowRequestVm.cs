@@ -34,4 +34,10 @@ namespace View.Model
         [ForeignKey("CustomerId")]
         public CustomerVm? Customer { get; set; }
     }
+
+    public class BorrowRequestListVm : CreateBorrowRequestVm
+    {
+        public int RequestId { get; set; }
+        public string BookName { get; set; }
+    }
 }

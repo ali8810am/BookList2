@@ -84,5 +84,11 @@ namespace View.Services
 
             return name;
         }
+        public string GetCurrentUserId()
+        {
+            var id = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(c=>c.Type== "uid").Value;
+
+            return id;
+        }
     }
 }

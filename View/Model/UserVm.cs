@@ -32,18 +32,29 @@ namespace View.Model
         public string Token { get; set; }
     }
 
-    public class EmployeeVm
+    public class EmployeeVm:CreateEmployeeVm
     {
         public int EmployeeId { get; set; }
+      
+    }
+
+    public class CreateEmployeeVm
+    {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public UserRegisterVm User { get; set; }
         public DateTime DateHired { get; set; }
         public string Duty { get; set; }
     }
-    public class CustomerVm
+
+    public class CustomerVm:CreateCustomerVm
     {
         public int CustomerId { get; set; }
+       
+    }
+
+    public class CreateCustomerVm
+    {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public UserRegisterVm User { get; set; }

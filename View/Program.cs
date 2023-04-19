@@ -32,6 +32,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBorrowAllocationService, BorrowAllocationService>();
 builder.Services.AddScoped<IBorrowRequestService, BorrowRequestService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 //builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 var app = builder.Build();

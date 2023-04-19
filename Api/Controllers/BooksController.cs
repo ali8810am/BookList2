@@ -41,7 +41,7 @@ namespace Api.Controllers
         //    return Ok(_mapper.Map<IList<BookDto>>(books));
         //}
         [HttpGet]
-        public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] BookQueryParameter? parameter)
+        public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] BookQueryParameter parameter)
         {
             if (parameter.WantAll==true)
             {
@@ -66,12 +66,12 @@ namespace Api.Controllers
 
         // GET api/<BooksController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BookDto>> Get(int id, List<string> includes = null)
+        public async Task<ActionResult<BookDto>> Get(int id, List<string>? includes = null)
         {
             var book = await _unitOfWork.Books.Get(b => b.Id == id);
             return Ok(_mapper.Map<BookDto>(book));
         }
-        [Authorize]
+        //[Authorize]
         // POST api/<BooksController>
         [HttpPost]
         public async Task Post([FromBody] CreateBookDto bookDto)

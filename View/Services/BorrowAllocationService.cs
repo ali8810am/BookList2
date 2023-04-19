@@ -19,7 +19,7 @@ namespace View.Services
         }
         public async Task<List<BorrowAllocationVm>> GetBorrowAllocations()
         {
-            var borrowAllocations = await _client.BorrowAllocationAllAsync();
+            var borrowAllocations = await _client.BorrowAllocationAllAsync(null, null, null, null, null, null, null, null, null, null, null, null,null,null);
             return _mapper.Map<List<BorrowAllocationVm>>(borrowAllocations);
         }
 

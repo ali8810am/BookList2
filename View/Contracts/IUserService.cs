@@ -8,5 +8,6 @@ namespace View.Contracts
         Task Logout();
         Task<bool> Register(UserRegisterVm user);
         string GetCurrentUserName();
+        string GetCurrentUserId();
     }
 }

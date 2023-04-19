@@ -6,17 +6,15 @@ namespace Api.Models
 {
     public class CreateCustomerDto
     {
-        public int UserId { get; set; }
-   
-        public DateTime DateMembered { get; set; }
+        public string UserId { get; set; }
+        
         [Required]
-        [StringLength(50, MinimumLength = 2)]
         public int MembershipRate { get; set; }
     }
 
     public class CustomerDto:CreateCustomerDto
     {
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
         public UserDto User { get; set; }
 
     }

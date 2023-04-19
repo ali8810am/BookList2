@@ -2,8 +2,8 @@
 {
     public class QueryParameter
     {
-        public RequestParameters RequestParameters { get; set; }=new RequestParameters();
+        public RequestParameters? RequestParameters { get; set; }=new RequestParameters();
         public List<string>? includes { get; set; }
-        public bool WantAll { get; set; }=false;
+        public bool? WantAll { get; set; }=false;
     }
 }

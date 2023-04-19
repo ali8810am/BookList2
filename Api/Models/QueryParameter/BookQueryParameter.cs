@@ -1,8 +1,12 @@
-﻿namespace Api.Models.QueryParameter
+﻿using JetBrains.Annotations;
+
+namespace Api.Models.QueryParameter
 {
     public class BookQueryParameter:QueryParameter
     {
+        [CanBeNull]
         public string? Name { get; set; }
+        [CanBeNull]
         public string? Author { get; set; }
     }
 }

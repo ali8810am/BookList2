@@ -4,7 +4,6 @@ namespace Api.Data
 {
     public class BorrowAllocation:BaseDomainObject
     {
-        public int AllocationId { get; set; }
         public DateTime BorrowStartDate { get; set; }
         public DateTime BorrowEndDate { get; set; }
         public DateTime DateApproved { get; set; }
@@ -16,10 +15,10 @@ namespace Api.Data
         public Book Book { get; set; }
         public int EmployeeId { get; set; }
         [ForeignKey("EmployeeId")]
-        public Employee? Employee { get; set; }
+        public Employee Employee { get; set; }
         public int CustomerId { get; set; }
         [ForeignKey("CustomerId")]
-        public Customer? Customer { get; set; }
+        public Customer Customer { get; set; }
 
     }
 }

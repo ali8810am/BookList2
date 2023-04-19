@@ -50,7 +50,7 @@ namespace Api.Controllers
                 return Ok(_mapper.Map<IList<BookDto>>(filteredBooks));
             }
 
-            var requests = await _unitOfWork.BorrowRequests.GetAll();
+            var requests = await _unitOfWork.BorrowRequests.GetAll(null, parameter.includes);
 
             return Ok(_mapper.Map<IList<BorrowRequestDto>>(requests));
         }
