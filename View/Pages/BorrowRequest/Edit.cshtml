@@ -8,10 +8,10 @@
 <table class="table table-striped border">
     <tr class="table-secondary">
         <th>
-            <label asp-for="BookVm.Name"></label>
+            <label asp-for="Request.Book.Name"></label>
         </th>
         <th>
-            <label asp-for="BookVm.Author"></label>
+            <label asp-for="Request.Book.Author"></label>
         </th>
     </tr>
 
@@ -19,7 +19,8 @@
 <div class="border container" style="padding:30px">
     <form method="post">
         <div asp-validation-summary="All"></div>
-        <input asp-for="RequsetId" type="hidden" />
+        <input asp-for="Request.RequestId" type="hidden" />
+        <input asp-for="Request.DateRequested" type="hidden" />
         <input asp-for="Request.BookId" type="hidden" />
         <div class="form-group row">
             <div class="col-4 text-right">

@@ -17,6 +17,7 @@ namespace Api.Profile
                 .ForMember(dest => dest.RequestId, option => option.MapFrom(src => src.Id))
                 .ReverseMap();
             CreateMap<BorrowRequest, CreateBorrowRequestDto>().ReverseMap();
+            CreateMap<BorrowRequest, UpdateBorrowRequestDto>().ReverseMap();
 
 
             CreateMap<BorrowAllocation, BorrowAllocationDto>()

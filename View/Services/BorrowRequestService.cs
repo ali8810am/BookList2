@@ -20,13 +20,19 @@ namespace View.Services
         }
         public async Task<List<BorrowRequestVm>> GetBorrowRequests()
         {
-            var borrowRequests = await _client.BorrowRequestAllAsync(null, null, null, null, null, null, null, null, null, null, new List<string>{ "Book" }, null);
+            var borrowRequests = await _client.BorrowRequestAllAsync(null, null, null, null, null, null, null, null, null, null, new List<string>{ "Book", "Customer" }, null);
             return _mapper.Map<List<BorrowRequestVm>>(borrowRequests);
         }
 
+        public async Task<BorrowRequestVm> GetBorrowRequest(int id,List<string>? include)
+        {
+            var borrowRequest = await _client.BorrowRequestGETAsync(id,include);
+            return _mapper.Map<BorrowRequestVm>(borrowRequest);
+        }
         public async Task<BorrowRequestVm> GetBorrowRequest(int id)
         {
-            var borrowRequest = await _client.BorrowRequestGETAsync(id);
+            List<string> include = new List<string>();
+            var borrowRequest = await _client.BorrowRequestGETAsync(id,include);
             return _mapper.Map<BorrowRequestVm>(borrowRequest);
         }
 
@@ -41,9 +47,9 @@ namespace View.Services
 
         public async Task<Response<int>> UpdateBorrowRequest(BorrowRequestVm borrowRequest)
         {
-            var borrowRequestDto = _mapper.Map<CreateBorrowRequestDto>(borrowRequest);
+            var borrowRequestDto = _mapper.Map<UpdateBorrowRequestDto>(borrowRequest);
             await _client.BorrowRequestPUTAsync(borrowRequest.RequestId, borrowRequestDto);
-            return new Response<int> { };
+            return new Response<int>{Success = true};
         }
 
         public async Task<Response<int>> DeleteBorrowRequest(int id)

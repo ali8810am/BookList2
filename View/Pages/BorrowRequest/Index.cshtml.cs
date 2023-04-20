@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using View.Contracts;
 using View.Model;
+using View.Services;
 
 namespace View.Pages.BorrowRequest
 {
@@ -18,5 +19,6 @@ namespace View.Pages.BorrowRequest
         {
             Requests =await _borrowRequestService.GetBorrowRequests();
         }
+       
     }
 }

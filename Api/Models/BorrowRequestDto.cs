@@ -33,4 +33,21 @@ namespace Api.Models
         public CustomerDto Customer { get; set; }
         public string? UpdatedBy { get; set; }
     }
+
+    public class UpdateBorrowRequestDto
+    {
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime StartDate { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime EndDate { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime DateRequested { get; set; }
+        [StringLength(250, MinimumLength = 2)]
+        public string RequestComments { get; set; }
+        public bool? Approved { get; set; }
+        public bool Cancelled { get; set; }
+    }
 }

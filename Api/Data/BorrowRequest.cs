@@ -13,9 +13,9 @@ namespace Api.Data
 
         public int BookId { get; set; }
         [ForeignKey("BookId")]
-        public Book Book { get; set; }
+        public Book Book { get; set; }=new Book();
         public int CustomerId { get; set; }
         [ForeignKey("CustomerId")]
-        public Customer Customer { get; set; }
+        public Customer Customer { get; set; }=new Customer();
     }
 }

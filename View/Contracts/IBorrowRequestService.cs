@@ -7,6 +7,7 @@ namespace View.Contracts
     {
         Task<List<BorrowRequestVm>> GetBorrowRequests();
         Task<BorrowRequestVm> GetBorrowRequest(int id);
+        Task<BorrowRequestVm> GetBorrowRequest(int id, List<string>? include);
         Task<Response<int>> CreateBorrowRequest(CreateBorrowRequestVm borrowRequest);
         Task<Response<int>> UpdateBorrowRequest(BorrowRequestVm borrowRequest);
         Task<Response<int>> DeleteBorrowRequest(int id);

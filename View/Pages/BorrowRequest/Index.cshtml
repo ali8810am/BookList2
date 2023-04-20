@@ -47,11 +47,11 @@
                         </td>
                         
                         <td>
-                            <a asp-page="/BorrowRequest/Create" asp-route-bookId="@item.RequestId" class="btn btn-warning btn-sm">Borrow</a>
+                            <a asp-page="/BorrowRequest/Details" asp-route-id="@item.RequestId" class="btn btn-warning btn-sm">Details</a>
                         </td>
                         <td>
-                            <a asp-page="/Book/Edit" asp-route-id="@item.RequestId" class="btn btn-warning btn-sm">Edit</a>
-                            <a asp-page-handler="Delete" asp-route-id="@item.RequestId" class="btn btn-danger btn-sm">Delete</a>
+                            <a asp-page="/BorrowRequest/Edit" asp-route-id="@item.RequestId" class="btn btn-warning btn-sm">Edit</a>
+                           
                         </td>
                     </tr>   
                 }

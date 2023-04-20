@@ -33,6 +33,7 @@ namespace View.Model
         public string? UpdatedBy { get; set; }
         [ForeignKey("CustomerId")]
         public CustomerVm? Customer { get; set; }
+        public BookVm? Book { get; set; }
     }
 
     public class BorrowRequestListVm : CreateBorrowRequestVm
