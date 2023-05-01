@@ -35,7 +35,7 @@ namespace Api.Controllers
         //    return Ok(_mapper.Map<IList<BookDto>>(books));
         //}
         [HttpGet]
-        [Route("GetAll")]
+        [Route("GetAllBooks")]
         public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] QueryParameter? parameters)
         {
             var books = await _unitOfWork.Books.GetAll(parameters.RequestParameters,null,parameters.includes);
@@ -43,7 +43,7 @@ namespace Api.Controllers
             return Ok(_mapper.Map<IList<BookDto>>(books));
         }
         [HttpGet]
-        [Route("GetFiltered")]
+        [Route("GetFilteredBooks")]
         public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] BookQueryParameter parameter)
         {
 

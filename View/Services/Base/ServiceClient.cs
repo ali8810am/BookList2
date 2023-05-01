@@ -40,21 +40,21 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllBooksAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllBooksAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -94,21 +94,21 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllAllocationsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllAllocationsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAllocationsAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAllocationsAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -148,21 +148,21 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAllRequestsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAllRequestsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFilteredRequestsAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFilteredRequestsAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -477,18 +477,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllBooksAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetAllAsync(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetAllBooksAsync(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllBooksAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Books/GetAll?");
+            urlBuilder_.Append("api/Books/GetAllBooks?");
             if (requestParameters_PageNumber != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -564,18 +564,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetFilteredAsync(name, author, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetFilteredBooksAsync(name, author, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Books/GetFiltered?");
+            urlBuilder_.Append("api/Books/GetFilteredBooks?");
             if (name != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("Name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -961,18 +961,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllAllocationsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetAll2Async(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetAllAllocationsAsync(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllAllocationsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowAllocation/GetAll?");
+            urlBuilder_.Append("api/BorrowAllocation/GetAllAllocations?");
             if (requestParameters_PageNumber != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -1048,18 +1048,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAllocationsAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetAllFilteredAsync(borrowStartDate, borrowEndDate, bookId, dateApproved, employeeId, customerId, isReturned, dateReturned, createdBy, updatedBy, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetAllFilteredAllocationsAsync(borrowStartDate, borrowEndDate, bookId, dateApproved, employeeId, customerId, isReturned, dateReturned, createdBy, updatedBy, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAllocationsAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowAllocation/GetAllFiltered?");
+            urlBuilder_.Append("api/BorrowAllocation/GetAllFilteredAllocations?");
             if (borrowStartDate != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("BorrowStartDate") + "=").Append(System.Uri.EscapeDataString(borrowStartDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -1477,18 +1477,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAllRequestsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetAll3Async(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetAllRequestsAsync(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAllRequestsAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowRequest/GetAll?");
+            urlBuilder_.Append("api/BorrowRequest/GetAllRequests?");
             if (requestParameters_PageNumber != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -1564,18 +1564,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFilteredRequestsAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetFiltered2Async(startDate, endDate, bookId, approved, cancelled, customerId, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetFilteredRequestsAsync(startDate, endDate, bookId, approved, cancelled, customerId, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFilteredRequestsAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowRequest/GetFiltered?");
+            urlBuilder_.Append("api/BorrowRequest/GetFilteredRequests?");
             if (startDate != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("StartDate") + "=").Append(System.Uri.EscapeDataString(startDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -2833,106 +2833,6 @@ namespace  View.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ApiUser
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UserName { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("normalizedUserName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string NormalizedUserName { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("email", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Email { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("normalizedEmail", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string NormalizedEmail { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("emailConfirmed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool EmailConfirmed { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("passwordHash", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string PasswordHash { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("securityStamp", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string SecurityStamp { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("concurrencyStamp", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string ConcurrencyStamp { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("phoneNumber", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string PhoneNumber { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("phoneNumberConfirmed", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool PhoneNumberConfirmed { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("twoFactorEnabled", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool TwoFactorEnabled { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("lockoutEnd", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? LockoutEnd { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("lockoutEnabled", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool LockoutEnabled { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("accessFailedCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int AccessFailedCount { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("firstName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string FirstName { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("lastName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string LastName { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Customer Customer { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("employee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Employee Employee { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Book
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset CreatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset UpdatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CreatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UpdatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("author", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Author { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("dateBackToLibrary", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? DateBackToLibrary { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("isInLibrary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsInLibrary { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowAllocations", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<BorrowAllocation> BorrowAllocations { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowRequests", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<BorrowRequest> BorrowRequests { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class BookDto
     {
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
@@ -2957,59 +2857,6 @@ namespace  View.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BorrowAllocation
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset CreatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset UpdatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CreatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UpdatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowStartDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset BorrowStartDate { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowEndDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset BorrowEndDate { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("dateApproved", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset DateApproved { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("isReturned", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsReturned { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("dateReturned", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? DateReturned { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("bookId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int BookId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("book", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Book Book { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int EmployeeId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("employee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Employee Employee { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int CustomerId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Customer Customer { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class BorrowAllocationDto
     {
         [Newtonsoft.Json.JsonProperty("borrowStartDate", Required = Newtonsoft.Json.Required.Always)]
@@ -3027,11 +2874,11 @@ namespace  View.Services.Base
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset DateApproved { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string EmployeeId { get; set; }
+        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int EmployeeId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CustomerId { get; set; }
+        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int CustomerId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isReturned", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsReturned { get; set; }
@@ -3049,63 +2896,13 @@ namespace  View.Services.Base
         public BookDto Book { get; set; }
 
         [Newtonsoft.Json.JsonProperty("employee", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Employee Employee { get; set; }
+        public EmployeeDto Employee { get; set; }
 
         [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Customer Customer { get; set; }
+        public CustomerDto Customer { get; set; }
 
         [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UpdatedBy { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BorrowRequest
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset CreatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset UpdatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CreatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UpdatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("startDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset StartDate { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("endDate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset EndDate { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("dateRequested", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset DateRequested { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("requestComments", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string RequestComments { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("approved", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool? Approved { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("cancelled", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool Cancelled { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("bookId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int BookId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("book", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Book Book { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int CustomerId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("customer", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Customer Customer { get; set; }
 
     }
 
@@ -3196,11 +2993,11 @@ namespace  View.Services.Base
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.DateTimeOffset DateApproved { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string EmployeeId { get; set; }
+        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int EmployeeId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CustomerId { get; set; }
+        [Newtonsoft.Json.JsonProperty("customerId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int CustomerId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isReturned", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsReturned { get; set; }
@@ -3277,44 +3074,6 @@ namespace  View.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Customer
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset CreatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset UpdatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CreatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UpdatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UserId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ApiUser User { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("dateMembered", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset DateMembered { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("membershipRate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int MembershipRate { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowAllocations", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<BorrowAllocation> BorrowAllocations { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowRequests", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<BorrowRequest> BorrowRequests { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CustomerDto
     {
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -3328,41 +3087,6 @@ namespace  View.Services.Base
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserDto User { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class Employee
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Id { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset CreatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset UpdatedDateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string CreatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UpdatedBy { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string UserId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ApiUser User { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("dateHired", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset DateHired { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("duty", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Duty { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("borrowAllocations", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<BorrowAllocation> BorrowAllocations { get; set; }
 
     }
 
@@ -3497,6 +3221,9 @@ namespace  View.Services.Base
     {
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("userName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UserName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("firstName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FirstName { get; set; }

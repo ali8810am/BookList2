@@ -23,7 +23,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("GetAllRequests")]
         public async Task<ActionResult<IList<BorrowRequestDto>>> Get([FromQuery] QueryParameter? parameter)
         {
             var requests = await _unitOfWork.BorrowRequests.GetAll(parameter.RequestParameters, null, parameter.includes);
@@ -32,7 +32,7 @@ namespace Api.Controllers
 
         // GET: api/<BorrowRequestsController>
             [HttpGet]
-        [Route("GetFiltered")]
+        [Route("GetFilteredRequests")]
         public async Task<ActionResult<IList<BorrowRequestDto>>> Get([FromQuery] BorrowRequestQueryParameter? parameter)
         {
             var filteredRequest = _unitOfWork.BorrowRequests.GetFiltered(parameter.includes);

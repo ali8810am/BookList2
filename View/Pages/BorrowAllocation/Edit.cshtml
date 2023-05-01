@@ -5,25 +5,17 @@
 <br />
 <h2 class="text-enfo">Edit Book</h2>
 <hr />
-<table class="table table-striped border">
-    <tr class="table-secondary">
-        <th>
-            <label asp-for="Allocation.Book.Name"></label>
-        </th>
-        <th>
-            <label asp-for="Allocation.Book.Author"></label>
-        </th>
-    </tr>
-
-</table>
 <div class="border container" style="padding:30px">
     <form method="post">
         <div asp-validation-summary="All"></div>
-        <input asp-for="Allocation.AllocationId" type="hidden" />
+        <input asp-for="Id" type="hidden" />
         <input asp-for="Allocation.DateApproved" type="hidden" />
         <input asp-for="Allocation.BookId" type="hidden" />
         <input asp-for="Allocation.CustomerId" type="hidden" />
         <input asp-for="Allocation.EmployeeId" type="hidden" />
+        <input asp-for="Allocation.CreateBy" type="hidden" />
+
+
 
 
 

@@ -63,7 +63,7 @@ namespace Api.Repository
             {
                 foreach (var property in includes)
                 {
-                    query = query.Include(property);
+                    query = query.Include(property) ;
                 }
             }
             if (expression == null)

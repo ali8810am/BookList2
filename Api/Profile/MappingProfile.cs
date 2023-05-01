@@ -31,7 +31,9 @@ namespace Api.Profile
             CreateMap<Employee,CreateEmployeeDto>().ReverseMap();
             CreateMap<Employee, EmployeeDto>().ReverseMap();
 
-            CreateMap<ApiUser, UserDto>().ReverseMap();
+            CreateMap<ApiUser, UserDto>()
+                .ForMember(dest => dest.UserId, option => option.MapFrom(src => src.Id))
+                .ReverseMap();
 
 
 

@@ -6,7 +6,7 @@ namespace Api.Data
     {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public ApiUser User { get; set; }
+        public ApiUser User { get; set; }=new ApiUser();
         public DateTime DateHired { get; set; }
         public string Duty { get; set; }
         public List<BorrowAllocation> BorrowAllocations { get; set; }

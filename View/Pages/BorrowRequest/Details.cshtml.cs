@@ -17,7 +17,7 @@ namespace View.Pages.BorrowRequest
         public BorrowRequestVm Request { get; set; }
         public async Task<IActionResult> OnGet(int id)
         {
-            Request = await _borrowRequestService.GetBorrowRequest(id, new List<string> { "Book" });
+            Request = await _borrowRequestService.GetBorrowRequest(id, new List<string> { "Book","Customer" });
             if (Request == null)
                 return NotFound();
             return Page();

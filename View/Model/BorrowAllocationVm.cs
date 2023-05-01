@@ -31,7 +31,7 @@ namespace View.Model
     {
         public EmployeeVm Employee { get; set; }
         public CustomerVm Customer { get; set; }
-        public Book Book { get; set; }
+        public BookVm Book { get; set; }
         public int AllocationId { get; set; }
         public string? UpdatedBy { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using Api.Data;
 using Api.Models;
 using Api.Models.Identity;
 
@@ -8,7 +9,7 @@ namespace Api.Services
     {
         Task<LoginResponseDto> Login(LoginRequestDto request);
         Task<RegisterResponseDto> Register(RegisterRequestDto request);
-        string GetCurrentUserName();
+        ApiUser GetUserByUserId(string userId);
 
     }
 }

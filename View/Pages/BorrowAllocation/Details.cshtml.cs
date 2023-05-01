@@ -16,7 +16,7 @@ namespace View.Pages.BorrowAllocation
         public BorrowAllocationVm Allocation { get; set; }
         public async Task<IActionResult> OnGet(int id)
         {
-            Allocation = await _borrowAllocationService.GetBorrowAllocation(id, new List<string> { "Book" });
+            Allocation = await _borrowAllocationService.GetBorrowAllocation(id, new List<string> { "Book", "Employee", "Customer" });
             if (Request == null)
                 return NotFound();
             return Page();

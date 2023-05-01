@@ -9,16 +9,25 @@ namespace View.Profile
         public MappingProfile()
         {
             CreateMap<UserRegisterVm, RegisterRequestDto>().ReverseMap();
-            CreateMap<UserRegisterVm, UserDto>().ReverseMap();
+            CreateMap<UserVm, UserDto>().ReverseMap();
 
             CreateMap<BookDto, BookVm>()
                 .ForMember(dest => dest.DateBackToLibrary, option => option.MapFrom(src => src.DateBackToLibrary.GetValueOrDefault().DateTime))
                 .ReverseMap();
             CreateMap<CreateBookDto, CreateBookVm>().ReverseMap();
 
-            CreateMap<BorrowAllocationVm, BorrowAllocationDto>().ReverseMap();
-            CreateMap<CreateBorrowAllocationVm, CreateBorrowAllocationDto>().ReverseMap();
-            CreateMap<BorrowAllocationVm, CreateBorrowAllocationDto>().ReverseMap();
+            CreateMap<BorrowAllocationDto, BorrowAllocationVm>()
+                .ForMember(dest => dest.DateApproved, option => option.MapFrom(src => src.DateApproved.DateTime))
+                .ForMember(dest => dest.BorrowStartDate, option => option.MapFrom(src => src.BorrowStartDate.DateTime))
+                .ForMember(dest => dest.BorrowEndDate, option => option.MapFrom(src => src.BorrowEndDate.DateTime))
+
+
+                .ReverseMap();
+            CreateMap<CreateBorrowAllocationDto, CreateBorrowAllocationVm>()
+                .ForMember(dest => dest.CreateBy, option => option.MapFrom(src => src.CreatedBy))
+
+                .ReverseMap();
+            CreateMap<BorrowAllocationDto, CreateBorrowAllocationVm>().ReverseMap();
 
             CreateMap<BorrowRequestDto, BorrowRequestVm>()
                 .ForMember(dest => dest.StartDate, option => option.MapFrom(src => src.StartDate.DateTime))

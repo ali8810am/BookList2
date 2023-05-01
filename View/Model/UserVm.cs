@@ -23,6 +23,21 @@ namespace View.Model
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
     }
+
+    public class UserVm
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        [Required]
+        [StringLength(maximumLength: 50, MinimumLength = 2)]
+        public string FirstName { get; set; }
+        [Required]
+        [StringLength(maximumLength: 50, MinimumLength = 2)]
+        public string LastName { get; set; }
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
+    }
     public class LoginResponseVm
     {
         public string Id { get; set; }
@@ -42,7 +57,7 @@ namespace View.Model
     {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public UserRegisterVm User { get; set; }
+        public UserVm User { get; set; }
         public DateTime DateHired { get; set; }
         public string Duty { get; set; }
     }
@@ -57,7 +72,7 @@ namespace View.Model
     {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public UserRegisterVm User { get; set; }
+        public UserVm User { get; set; }
         public DateTime DateMembered { get; set; }
         public int MembershipRate { get; set; }
     }

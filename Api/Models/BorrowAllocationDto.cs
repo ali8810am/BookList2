@@ -17,9 +17,9 @@ namespace Api.Models
         [DataType(DataType.DateTime)]
         public DateTime DateApproved { get; set; }
   
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public bool IsReturned { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime? DateReturned { get; set; }
@@ -30,9 +30,9 @@ namespace Api.Models
     public class BorrowAllocationDto:CreateBorrowAllocationDto
     {
         public int AllocationId { get; set; }
-        public BookDto Book { get; set; }
-        public Employee Employee { get; set; }
-        public Customer Customer { get; set; }
+        public BookDto? Book { get; set; } = new BookDto();
+        public EmployeeDto? Employee { get; set; }=new EmployeeDto();
+        public CustomerDto? Customer { get; set; } = new CustomerDto();
         public string? UpdatedBy { get; set; }
     }
 }

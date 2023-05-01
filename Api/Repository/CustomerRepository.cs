@@ -1,5 +1,7 @@
-﻿using Api.Data;
+﻿using System.Linq.Expressions;
+using Api.Data;
 using Api.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Repository
 {
@@ -8,5 +10,6 @@ namespace Api.Repository
         public CustomerRepository(ApplicationDbContext context) : base(context)
         {
         }
+
     }
 }

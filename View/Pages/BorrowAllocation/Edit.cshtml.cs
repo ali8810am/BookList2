@@ -19,21 +19,26 @@ namespace View.Pages.BorrowAllocation
             _mapper = mapper;
         }
         [BindProperty]
-        public BorrowAllocationVm Allocation { get; set; }
+        public CreateBorrowAllocationVm Allocation { get; set; }
+        [BindProperty]
+        public int Id { get; set; }
         public async Task<IActionResult> OnGet(int id)
         {
-            Allocation = await _borrowAllocationService.GetBorrowAllocation(id,new List<string>{"Book","Customer","Employee"});
-            if (Request == null)
+            var all = await _borrowAllocationService.GetBorrowAllocation(id,
+                new List<string> { "Book", "Employee", "Customer" });
+            Allocation =  _mapper.Map<CreateBorrowAllocationVm>(all);
+            if (Allocation == null)
                 return NotFound();
+            Id = all.AllocationId;
             return Page();
         }
 
-        public async Task<IActionResult> OnPost(int id)
+        public async Task<IActionResult> OnPost()
         {
-            Allocation.UpdatedBy = _userService.GetCurrentUserName();
+            Allocation.CreateBy = "NotAuthenticated";
             if (ModelState.IsValid)
             {
-                var response = await _borrowAllocationService.UpdateBorrowAllocation(Allocation);
+                var response = await _borrowAllocationService.UpdateBorrowAllocation(Id,Allocation);
                 if (response.Success)
                 {
                     return LocalRedirect("/BorrowRequest/Index");

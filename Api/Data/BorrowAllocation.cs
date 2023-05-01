@@ -17,7 +17,7 @@ namespace Api.Data
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
         public int CustomerId { get; set; }
-        [ForeignKey("CustomerId")]
+        [ForeignKey("CustomerId")] 
         public Customer Customer { get; set; }
 
     }

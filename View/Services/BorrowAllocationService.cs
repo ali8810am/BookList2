@@ -19,7 +19,7 @@ namespace View.Services
         }
         public async Task<List<BorrowAllocationVm>> GetBorrowAllocations()
         {
-            var borrowAllocations = await _client.BorrowAllocationAllAsync(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            var borrowAllocations = await _client.GetAllAllocationsAsync(null, null, new List<string>{"Book","Customer","Employee"});
             return _mapper.Map<List<BorrowAllocationVm>>(borrowAllocations);
         }
 
@@ -29,6 +29,7 @@ namespace View.Services
             var borrowAllocation = await _client.BorrowAllocationGETAsync(id,include);
             return _mapper.Map<BorrowAllocationVm>(borrowAllocation);
         }
+
 
 
         public async Task<Response<int>> CreateBorrowAllocation(CreateBorrowAllocationVm borrowAllocation)
@@ -41,12 +42,12 @@ namespace View.Services
             };
         }
 
-        public async Task<Response<int>> UpdateBorrowAllocation(BorrowAllocationVm borrowAllocation)
+        public async Task<Response<int>> UpdateBorrowAllocation(int id,CreateBorrowAllocationVm borrowAllocation)
         {
             var borrowAllocationDto = _mapper.Map<CreateBorrowAllocationDto>(borrowAllocation);
             AddBearerToken();
-            await _client.BorrowAllocationPUTAsync(borrowAllocation.AllocationId, borrowAllocationDto);
-            return new Response<int> { };
+            await _client.BorrowAllocationPUTAsync(id, borrowAllocationDto);
+            return new Response<int> {Success = true};
         }
 
         public async Task<Response<int>> DeleteBorrowAllocation(int id)

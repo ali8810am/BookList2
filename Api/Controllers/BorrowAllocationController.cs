@@ -2,10 +2,13 @@
 using Api.Exceptions;
 using Api.IRepository;
 using Api.Models;
+using Api.Models.Identity;
 using Api.Models.QueryParameter;
+using Api.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 using X.PagedList;
 
 namespace Api.Controllers
@@ -16,25 +19,42 @@ namespace Api.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IAuthManager _authManager;
 
-        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper)
+        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper, IAuthManager authManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _authManager = authManager;
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("GetAllAllocations")]
         public async Task<ActionResult<IList<BorrowAllocationDto>>> GetAll(
            [FromQuery]QueryParameter parameter)
         {
             var allocations = await _unitOfWork.BorrowAllocations.GetAll(parameter.RequestParameters, null, parameter.includes);
-            return Ok(_mapper.Map<IList<BorrowAllocationDto>>(allocations)); 
+            var allocationsDto = _mapper.Map<IList<BorrowAllocationDto>>(allocations);
+            if (parameter.includes.Contains("Customer"))
+            {
+                foreach (var allocation in allocationsDto)
+                {
+                    allocation.Customer.User =_mapper.Map<UserDto>(_authManager.GetUserByUserId(allocation.Customer.UserId));
+                }
+            }
+            if (parameter.includes.Contains("Employee"))
+            {
+                foreach (var allocation in allocationsDto)
+                {
+                    allocation.Employee.User = _mapper.Map<UserDto>(_authManager.GetUserByUserId(allocation.Employee.UserId));
+                }
+            }
+            return Ok(allocationsDto); 
         }
 
         // GET: api/<BorrowAllocationsController>
         [HttpGet]
-        [Route("GetAllFiltered")]
+        [Route("GetAllFilteredAllocations")]
         public async Task<ActionResult<IList<BorrowAllocationDto>>> GetAll([FromQuery] BorrowAllocationQueryParameter? parameter)
         {
             //parameter.includes = new List<string> { "Book", "Customer", "Employee" };
@@ -100,7 +120,22 @@ namespace Api.Controllers
             }
             filteredAllocation.ToPagedList(parameter.RequestParameters.PageNumber,
                 parameter.RequestParameters.PageSize);
-            return Ok(_mapper.Map<IList<BorrowAllocationDto>>(filteredAllocation));
+            var allocationsDto = _mapper.Map<IList<BorrowAllocationDto>>(filteredAllocation);
+            if (parameter.includes.Contains("Customer"))
+            {
+                foreach (var allocation in allocationsDto)
+                {
+                    allocation.Customer.User = _mapper.Map<UserDto>(_authManager.GetUserByUserId(allocation.Customer.UserId));
+                }
+            }
+            if (parameter.includes.Contains("Employee"))
+            {
+                foreach (var allocation in allocationsDto)
+                {
+                    allocation.Employee.User = _mapper.Map<UserDto>(_authManager.GetUserByUserId(allocation.Employee.UserId));
+                }
+            }
+            return Ok(allocationsDto);
 
             //var books = await _unitOfWork.Books.GetAll(parameter.RequestParameters, null, parameter.includes);
             //return Ok(_mapper.Map<IList<BookDto>>(books));
@@ -111,7 +146,18 @@ namespace Api.Controllers
         public async Task<ActionResult<BorrowAllocationDto>> Get(int id, List<string>? includes)
         {
             var borrowAllocation = await _unitOfWork.BorrowAllocations.Get(b => b.Id == id,includes);
-            return Ok(_mapper.Map<BorrowAllocationDto>(borrowAllocation));
+            var allocationDto = _mapper.Map<BorrowAllocationDto>(borrowAllocation);
+            if (includes.Contains("Customer"))
+            {
+               
+                    allocationDto.Customer.User = _mapper.Map<UserDto>(_authManager.GetUserByUserId(borrowAllocation.Customer.UserId));
+            }
+            if (includes.Contains("Employee"))
+            {
+                
+                    allocationDto.Employee.User = _mapper.Map<UserDto>(_authManager.GetUserByUserId(borrowAllocation.Employee.UserId));
+            }
+            return Ok(allocationDto);
         }
 
         // POST api/<BorrowAllocationsController>

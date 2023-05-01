@@ -20,7 +20,7 @@ namespace View.Services
         }
         public async Task<List<BorrowRequestVm>> GetBorrowRequests()
         {
-            var borrowRequests = await _client.BorrowRequestAllAsync(null, null, null, null, null, null, null, null, null, null, new List<string>{ "Book", "Customer" }, null);
+            var borrowRequests = await _client.GetAllRequestsAsync( null, null, new List<string>{ "Book", "Customer" });
             return _mapper.Map<List<BorrowRequestVm>>(borrowRequests);
         }
 

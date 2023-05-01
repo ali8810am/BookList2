@@ -158,9 +158,11 @@ namespace Api.Services
             }
         }
 
-        public string GetCurrentUserName()
+        public ApiUser GetUserByUserId(string userId)
         {
-            return _user.UserName;
+            var user = new ApiUser();
+           user= _userManager.Users.FirstOrDefault(u=>u.Id==userId);
+           return user;
         }
     }
 }
