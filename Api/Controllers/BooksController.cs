@@ -6,6 +6,7 @@ using Api.Models.QueryParameter;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 using X.PagedList;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -33,21 +34,18 @@ namespace Api.Controllers
 
         //    return Ok(_mapper.Map<IList<BookDto>>(books));
         //}
-        //[HttpGet]
-        //public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] RequestParameters? parameters )
-        //{
-        //    var books = await _unitOfWork.Books.GetAll(parameters);
-
-        //    return Ok(_mapper.Map<IList<BookDto>>(books));
-        //}
         [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] QueryParameter? parameters)
+        {
+            var books = await _unitOfWork.Books.GetAll(parameters.RequestParameters,null,parameters.includes);
+
+            return Ok(_mapper.Map<IList<BookDto>>(books));
+        }
+        [HttpGet]
+        [Route("GetFiltered")]
         public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] BookQueryParameter parameter)
         {
-            if (parameter.WantAll==true)
-            {
-                var allBooks = await _unitOfWork.Books.GetAll(null,parameter.includes);
-                return Ok(_mapper.Map<IList<BookDto>>(allBooks));
-            }
 
             if (parameter.Author != null||parameter.Name!=null)
             {

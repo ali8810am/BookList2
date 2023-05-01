@@ -5,7 +5,7 @@ using View.Services.Base;
 
 namespace View.Services
 {
-    public class BorrowAllocationService : BaseHttpService,IBorrowAllocationService
+    public class BorrowAllocationService : BaseHttpService, IBorrowAllocationService
     {
         private readonly ILocalStorageService _storageService;
         private readonly IMapper _mapper;
@@ -19,13 +19,14 @@ namespace View.Services
         }
         public async Task<List<BorrowAllocationVm>> GetBorrowAllocations()
         {
-            var borrowAllocations = await _client.BorrowAllocationAllAsync(null, null, null, null, null, null, null, null, null, null, null, null,null,null);
+            var borrowAllocations = await _client.BorrowAllocationAllAsync(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
             return _mapper.Map<List<BorrowAllocationVm>>(borrowAllocations);
         }
 
-        public async Task<BorrowAllocationVm> GetBorrowAllocation(int id)
+        public async Task<BorrowAllocationVm> GetBorrowAllocation(int id, List<string>? include)
         {
-            var borrowAllocation = await _client.BorrowAllocationGETAsync(id);
+            include ??= new List<string>();
+            var borrowAllocation = await _client.BorrowAllocationGETAsync(id,include);
             return _mapper.Map<BorrowAllocationVm>(borrowAllocation);
         }
 

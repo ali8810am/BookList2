@@ -2,9 +2,8 @@
 
 namespace Api.Data
 {
-    public class Employee
+    public class Employee : BaseDomainObject
     {
-        public int EmployeeId { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public ApiUser User { get; set; }

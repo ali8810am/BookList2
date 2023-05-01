@@ -10,6 +10,8 @@ namespace Api.Models
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string Author { get; set; }
+        public DateTime? DateBackToLibrary { get; set; }
+        public bool IsInLibrary { get; set; } = true;
     }
 
     public class BookDto:CreateBookDto

@@ -40,21 +40,21 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> BooksAllAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> BooksAllAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -85,30 +85,39 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> BorrowAllocationAllAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, string employeeId, string customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll);
+        System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> BorrowAllocationAllAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, string employeeId, string customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body, System.Threading.CancellationToken cancellationToken);
-
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id, System.Collections.Generic.IEnumerable<string> body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -130,21 +139,30 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> BorrowRequestAllAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string bookId, System.DateTimeOffset? dateRequested, string requestComments, bool? approved, bool? cancelled, string createdBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll);
+        System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> BorrowRequestAllAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string bookId, System.DateTimeOffset? dateRequested, string requestComments, bool? approved, bool? cancelled, string createdBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -172,6 +190,15 @@ namespace  View.Services.Base
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task BorrowRequestDELETEAsync(int id, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -238,12 +265,12 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(int id);
+        System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(string userId, int employeeId);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(int id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(string userId, int employeeId, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -315,7 +342,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
@@ -393,7 +420,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
@@ -450,26 +477,18 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> BooksAllAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return BooksAllAsync(name, author, requestParameters_PageNumber, requestParameters_PageSize, includes, wantAll, System.Threading.CancellationToken.None);
+            return GetAllAsync(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> BooksAllAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetAllAsync(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Books?");
-            if (name != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (author != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Author") + "=").Append(System.Uri.EscapeDataString(ConvertToString(author, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
+            urlBuilder_.Append("api/Books/GetAll?");
             if (requestParameters_PageNumber != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -481,10 +500,6 @@ namespace  View.Services.Base
             if (includes != null)
             {
                 foreach (var item_ in includes) { urlBuilder_.Append(System.Uri.EscapeDataString("includes") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
-            }
-            if (wantAll != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("WantAll") + "=").Append(System.Uri.EscapeDataString(ConvertToString(wantAll, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -549,18 +564,39 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return BooksPOSTAsync(body, System.Threading.CancellationToken.None);
+            return GetFilteredAsync(name, author, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Books");
+            urlBuilder_.Append("api/Books/GetFiltered?");
+            if (name != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("Name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (author != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("Author") + "=").Append(System.Uri.EscapeDataString(ConvertToString(author, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (requestParameters_PageNumber != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (requestParameters_PageSize != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageSize") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageSize, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (includes != null)
+            {
+                foreach (var item_ in includes) { urlBuilder_.Append(System.Uri.EscapeDataString("includes") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -568,11 +604,8 @@ namespace  View.Services.Base
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -597,7 +630,12 @@ namespace  View.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<BookDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -646,7 +684,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
@@ -728,7 +766,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 
@@ -851,58 +889,90 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> BorrowAllocationAllAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, string employeeId, string customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll)
+        public virtual System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body)
         {
-            return BorrowAllocationAllAsync(borrowStartDate, borrowEndDate, bookId, dateApproved, employeeId, customerId, isReturned, dateReturned, createdBy, updatedBy, requestParameters_PageNumber, requestParameters_PageSize, includes, wantAll, System.Threading.CancellationToken.None);
+            return BooksPOSTAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> BorrowAllocationAllAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, string employeeId, string customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task BooksPOSTAsync(CreateBookDto body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowAllocation?");
-            if (borrowStartDate != null)
+            urlBuilder_.Append("api/Books");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("BorrowStartDate") + "=").Append(System.Uri.EscapeDataString(borrowStartDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
             }
-            if (borrowEndDate != null)
+            finally
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("BorrowEndDate") + "=").Append(System.Uri.EscapeDataString(borrowEndDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                if (disposeClient_)
+                    client_.Dispose();
             }
-            if (bookId != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("BookId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(bookId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (dateApproved != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("DateApproved") + "=").Append(System.Uri.EscapeDataString(dateApproved.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (employeeId != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EmployeeId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(employeeId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (customerId != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("CustomerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(customerId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (isReturned != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("IsReturned") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isReturned, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (dateReturned != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("DateReturned") + "=").Append(System.Uri.EscapeDataString(dateReturned.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (createdBy != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("CreatedBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(createdBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (updatedBy != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("UpdatedBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(updatedBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        {
+            return GetAll2Async(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAll2Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/BorrowAllocation/GetAll?");
             if (requestParameters_PageNumber != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -914,10 +984,6 @@ namespace  View.Services.Base
             if (includes != null)
             {
                 foreach (var item_ in includes) { urlBuilder_.Append(System.Uri.EscapeDataString("includes") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
-            }
-            if (wantAll != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("WantAll") + "=").Append(System.Uri.EscapeDataString(ConvertToString(wantAll, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -982,18 +1048,71 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return BorrowAllocationPOSTAsync(body, System.Threading.CancellationToken.None);
+            return GetAllFilteredAsync(borrowStartDate, borrowEndDate, bookId, dateApproved, employeeId, customerId, isReturned, dateReturned, createdBy, updatedBy, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowAllocationDto>> GetAllFilteredAsync(System.DateTimeOffset? borrowStartDate, System.DateTimeOffset? borrowEndDate, int? bookId, System.DateTimeOffset? dateApproved, int? employeeId, int? customerId, bool? isReturned, System.DateTimeOffset? dateReturned, string createdBy, string updatedBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowAllocation");
+            urlBuilder_.Append("api/BorrowAllocation/GetAllFiltered?");
+            if (borrowStartDate != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("BorrowStartDate") + "=").Append(System.Uri.EscapeDataString(borrowStartDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (borrowEndDate != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("BorrowEndDate") + "=").Append(System.Uri.EscapeDataString(borrowEndDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (bookId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("BookId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(bookId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (dateApproved != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("DateApproved") + "=").Append(System.Uri.EscapeDataString(dateApproved.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (employeeId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("EmployeeId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(employeeId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (customerId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("CustomerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(customerId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isReturned != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("IsReturned") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isReturned, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (dateReturned != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("DateReturned") + "=").Append(System.Uri.EscapeDataString(dateReturned.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (createdBy != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("CreatedBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(createdBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (updatedBy != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("UpdatedBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(updatedBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (requestParameters_PageNumber != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (requestParameters_PageSize != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageSize") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageSize, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (includes != null)
+            {
+                foreach (var item_ in includes) { urlBuilder_.Append(System.Uri.EscapeDataString("includes") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1001,11 +1120,8 @@ namespace  View.Services.Base
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1030,7 +1146,12 @@ namespace  View.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<BorrowAllocationDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -1054,15 +1175,15 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id)
+        public virtual System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id, System.Collections.Generic.IEnumerable<string> body)
         {
-            return BorrowAllocationGETAsync(id, System.Threading.CancellationToken.None);
+            return BorrowAllocationGETAsync(id, body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<BorrowAllocationDto> BorrowAllocationGETAsync(int id, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1077,6 +1198,10 @@ namespace  View.Services.Base
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
@@ -1157,7 +1282,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 
@@ -1280,50 +1405,90 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> BorrowRequestAllAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string bookId, System.DateTimeOffset? dateRequested, string requestComments, bool? approved, bool? cancelled, string createdBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll)
+        public virtual System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body)
         {
-            return BorrowRequestAllAsync(startDate, endDate, bookId, dateRequested, requestComments, approved, cancelled, createdBy, requestParameters_PageNumber, requestParameters_PageSize, includes, wantAll, System.Threading.CancellationToken.None);
+            return BorrowAllocationPOSTAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> BorrowRequestAllAsync(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string bookId, System.DateTimeOffset? dateRequested, string requestComments, bool? approved, bool? cancelled, string createdBy, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, bool? wantAll, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task BorrowAllocationPOSTAsync(CreateBorrowAllocationDto body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowRequest?");
-            if (startDate != null)
+            urlBuilder_.Append("api/BorrowAllocation");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("StartDate") + "=").Append(System.Uri.EscapeDataString(startDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
             }
-            if (endDate != null)
+            finally
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("EndDate") + "=").Append(System.Uri.EscapeDataString(endDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                if (disposeClient_)
+                    client_.Dispose();
             }
-            if (bookId != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("BookId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(bookId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (dateRequested != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("DateRequested") + "=").Append(System.Uri.EscapeDataString(dateRequested.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (requestComments != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("RequestComments") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestComments, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (approved != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Approved") + "=").Append(System.Uri.EscapeDataString(ConvertToString(approved, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (cancelled != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("Cancelled") + "=").Append(System.Uri.EscapeDataString(ConvertToString(cancelled, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (createdBy != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("CreatedBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(createdBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        {
+            return GetAll3Async(requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetAll3Async(int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/BorrowRequest/GetAll?");
             if (requestParameters_PageNumber != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -1335,10 +1500,6 @@ namespace  View.Services.Base
             if (includes != null)
             {
                 foreach (var item_ in includes) { urlBuilder_.Append(System.Uri.EscapeDataString("includes") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
-            }
-            if (wantAll != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("WantAll") + "=").Append(System.Uri.EscapeDataString(ConvertToString(wantAll, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -1403,18 +1564,55 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return BorrowRequestPOSTAsync(body, System.Threading.CancellationToken.None);
+            return GetFiltered2Async(startDate, endDate, bookId, approved, cancelled, customerId, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BorrowRequestDto>> GetFiltered2Async(System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, int? bookId, bool? approved, bool? cancelled, int? customerId, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/BorrowRequest");
+            urlBuilder_.Append("api/BorrowRequest/GetFiltered?");
+            if (startDate != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("StartDate") + "=").Append(System.Uri.EscapeDataString(startDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (endDate != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("EndDate") + "=").Append(System.Uri.EscapeDataString(endDate.Value.ToString("s", System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (bookId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("BookId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(bookId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (approved != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("Approved") + "=").Append(System.Uri.EscapeDataString(ConvertToString(approved, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (cancelled != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("Cancelled") + "=").Append(System.Uri.EscapeDataString(ConvertToString(cancelled, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (customerId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("CustomerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(customerId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (requestParameters_PageNumber != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageNumber") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageNumber, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (requestParameters_PageSize != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("RequestParameters.PageSize") + "=").Append(System.Uri.EscapeDataString(ConvertToString(requestParameters_PageSize, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (includes != null)
+            {
+                foreach (var item_ in includes) { urlBuilder_.Append(System.Uri.EscapeDataString("includes") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -1422,11 +1620,8 @@ namespace  View.Services.Base
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1451,7 +1646,12 @@ namespace  View.Services.Base
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            return;
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<BorrowRequestDto>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -1500,7 +1700,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
@@ -1582,7 +1782,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 
@@ -1657,6 +1857,78 @@ namespace  View.Services.Base
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body)
+        {
+            return BorrowRequestPOSTAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task BorrowRequestPOSTAsync(CreateBorrowRequestDto body, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("api/BorrowRequest");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -1800,7 +2072,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
@@ -1959,7 +2231,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 
@@ -2177,7 +2449,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
@@ -2228,22 +2500,27 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(int id)
+        public virtual System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(string userId, int employeeId)
         {
-            return EmployeeGETAsync(id, System.Threading.CancellationToken.None);
+            return EmployeeGETAsync(userId, employeeId, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EmployeeDto> EmployeeGETAsync(string userId, int employeeId, System.Threading.CancellationToken cancellationToken)
         {
-            if (id == null)
-                throw new System.ArgumentNullException("id");
+            if (employeeId == null)
+                throw new System.ArgumentNullException("employeeId");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Employee/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append("api/Employee/{employeeId}?");
+            urlBuilder_.Replace("{employeeId}", System.Uri.EscapeDataString(ConvertToString(employeeId, System.Globalization.CultureInfo.InvariantCulture)));
+            if (userId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("userId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2331,7 +2608,7 @@ namespace  View.Services.Base
                 {
                     var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value);
                     var content_ = new System.Net.Http.StringContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 
@@ -2668,6 +2945,12 @@ namespace  View.Services.Base
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
         public string Author { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("dateBackToLibrary", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset? DateBackToLibrary { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isInLibrary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsInLibrary { get; set; }
+
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Id { get; set; }
 
@@ -2887,6 +3170,12 @@ namespace  View.Services.Base
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
         public string Author { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("dateBackToLibrary", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset? DateBackToLibrary { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isInLibrary", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsInLibrary { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -2974,8 +3263,8 @@ namespace  View.Services.Base
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class CreateEmployeeDto
     {
-        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int UserId { get; set; }
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UserId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("dateHired", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset DateHired { get; set; }
@@ -3045,8 +3334,20 @@ namespace  View.Services.Base
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class Employee
     {
-        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int EmployeeId { get; set; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("createdDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset CreatedDateTime { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("updatedDateTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset UpdatedDateTime { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("createdBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string CreatedBy { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("updatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UpdatedBy { get; set; }
 
         [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UserId { get; set; }
@@ -3068,8 +3369,8 @@ namespace  View.Services.Base
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.2.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class EmployeeDto
     {
-        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int UserId { get; set; }
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string UserId { get; set; }
 
         [Newtonsoft.Json.JsonProperty("dateHired", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.DateTimeOffset DateHired { get; set; }
@@ -3079,8 +3380,8 @@ namespace  View.Services.Base
         [System.ComponentModel.DataAnnotations.StringLength(50, MinimumLength = 2)]
         public string Duty { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("employeeId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int EmployeeId { get; set; }
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Id { get; set; }
 
         [Newtonsoft.Json.JsonProperty("user", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserDto User { get; set; }

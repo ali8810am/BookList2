@@ -36,9 +36,10 @@ namespace View.Model
         public BookVm? Book { get; set; }
     }
 
-    public class BorrowRequestListVm : CreateBorrowRequestVm
+
+    public class BorrowRequestForAllocationListVm : BorrowRequestVm
     {
-        public int RequestId { get; set; }
-        public string BookName { get; set; }
+        public bool Reject { get; set; } = false;
+        public bool Allocate { get; set; } = false;
     }
 }

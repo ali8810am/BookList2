@@ -28,6 +28,9 @@ namespace Api.Profile
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Customer, CreateCustomerDto>().ReverseMap();
 
+            CreateMap<Employee,CreateEmployeeDto>().ReverseMap();
+            CreateMap<Employee, EmployeeDto>().ReverseMap();
+
             CreateMap<ApiUser, UserDto>().ReverseMap();
 
 

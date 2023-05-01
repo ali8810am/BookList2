@@ -32,37 +32,60 @@ namespace Api.Controllers
         }
 
         // GET api/<EmployeeController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EmployeeDto>> Get(int id)
+        [HttpGet("{employeeId}")]
+        public async Task<ActionResult<EmployeeDto>> Get(string? userId, int employeeId)
         {
-            var employee = await _unitOfWork.Employee.Get(c => c.EmployeeId == id);
+            var employee = new Employee();
+            if (employeeId!=0)
+            {
+                employee = await _unitOfWork.Employee.Get(c => c.Id == employeeId, includes: new List<string> { "User" });
+                if (employee == null)
+                    return NotFound();
+
+                return Ok(_mapper.Map<EmployeeDto>(employee));
+            }
+
+            if (userId == null)
+                return BadRequest();
+
+            employee = await _unitOfWork.Employee.Get(c => c.UserId == userId, includes: new List<string> { "User" });
+            if (employee == null)
+                return NotFound();
             return Ok(_mapper.Map<EmployeeDto>(employee));
+
+
+
+            //var employee = await _unitOfWork.Employee.Get(c => c.EmployeeId == id);
+            //return Ok(_mapper.Map<EmployeeDto>(employee));
         }
 
         // POST api/<EmployeeController>
         [HttpPost]
-        public void Post([FromBody] CreateEmployeeDto employeeDto)
+        public async Task Post([FromBody] CreateEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<Employee>(employeeDto);
             _unitOfWork.Employee.Add(employee);
+            await _unitOfWork.Save();
         }
 
         // PUT api/<EmployeeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CreateEmployeeDto employeeDto)
+        public async Task Put(int id, [FromBody] CreateEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<Employee>(employeeDto);
             _unitOfWork.Employee.Update(employee);
+            await _unitOfWork.Save();
         }
 
         // DELETE api/<EmployeeController>/5
         [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
-            var employee = await _unitOfWork.Employee.Get(c => c.EmployeeId == id);
+            var employee = await _unitOfWork.Employee.Get(c => c.Id == id);
             if (employee == null)
-                throw new NotFoundException("Employee not found", employee.EmployeeId);
+                throw new NotFoundException("Employee not found", employee.Id);
             await _unitOfWork.Employee.Delete(id);
+            await _unitOfWork.Save();
 
         }
     }

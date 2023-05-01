@@ -19,7 +19,11 @@ builder.Services.AddControllers(config =>
     {
         Duration = 120
     });
-});
+})
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+); 
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

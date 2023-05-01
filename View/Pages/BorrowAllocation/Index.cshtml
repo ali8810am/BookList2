@@ -1,0 +1,63 @@
+﻿@page
+@model View.Pages.BorrowAllocation.IndexModel
+@{
+}
+<div class="col-12 p-3 border mt-3 ">
+    <form method="post">
+        @if (Model.Allocations.Any())
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().Book.Name"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().Customer.User.UserName"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().BorrowStartDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().BorrowEndDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().IsReturned"></label>
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Allocations)
+                {
+                    <tr>
+                        <td>
+                            @item.Book.Name
+                        </td>
+                        <td>
+                            @item.Customer.User.UserName
+                        </td>
+                        <td>
+                            @item.BorrowStartDate
+                        </td>
+                        <td>
+                            @item.BorrowEndDate
+                        </td>
+                        <td>
+                            @item.IsReturned
+                        </td>
+
+                        <td>
+                            <a asp-page="/BorrowAllocation/Details" asp-route-id="@item.AllocationId" class="btn btn-warning btn-sm">Details</a>
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowAllocation/Edit" asp-route-id="@item.AllocationId" class="btn btn-warning btn-sm">Edit</a>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>There is no book to show. Please Enter Any Book</p>
+        }
+    </form>
+</div>

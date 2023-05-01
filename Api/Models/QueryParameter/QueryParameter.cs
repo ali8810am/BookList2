@@ -4,6 +4,5 @@
     {
         public RequestParameters? RequestParameters { get; set; }=new RequestParameters();
         public List<string>? includes { get; set; }
-        public bool? WantAll { get; set; }=false;
     }
 }

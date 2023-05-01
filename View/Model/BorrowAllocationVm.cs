@@ -19,9 +19,9 @@ namespace View.Model
         [DataType(DataType.DateTime)]
         public DateTime DateApproved { get; set; }
 
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public bool IsReturned { get; set; }
         [DataType(DataType.DateTime)] public DateTime? DateReturned { get; set; }
         public string? CreateBy { get; set; }

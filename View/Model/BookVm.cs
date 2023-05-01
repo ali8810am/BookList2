@@ -16,6 +16,8 @@ namespace View.Model
 
         [Required]
         public DateTime CreateDate { get; set; }= DateTime.Now;
+        public DateTime? DateBackToLibrary { get; set; }
+        public bool IsInLibrary { get; set; } = true;
 
     }
 

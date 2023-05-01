@@ -22,38 +22,51 @@ namespace Api.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/<BorrowRequestsController>
         [HttpGet]
+        [Route("GetAll")]
+        public async Task<ActionResult<IList<BorrowRequestDto>>> Get([FromQuery] QueryParameter? parameter)
+        {
+            var requests = await _unitOfWork.BorrowRequests.GetAll(parameter.RequestParameters, null, parameter.includes);
+            return Ok(_mapper.Map<IList<BorrowRequestDto>>(requests));
+        }
+
+        // GET: api/<BorrowRequestsController>
+            [HttpGet]
+        [Route("GetFiltered")]
         public async Task<ActionResult<IList<BorrowRequestDto>>> Get([FromQuery] BorrowRequestQueryParameter? parameter)
         {
-            if (parameter.WantAll == true)
+            var filteredRequest = _unitOfWork.BorrowRequests.GetFiltered(parameter.includes);
+
+            if (parameter.CustomerId != null)
             {
-                var allRequests = await _unitOfWork.BorrowRequests.GetAll(null, parameter.includes);
-                return Ok(_mapper.Map<IList<BorrowAllocationDto>>(allRequests));
+                filteredRequest.Where(b =>
+                    b.CustomerId == parameter.CustomerId || string.IsNullOrWhiteSpace(parameter.CustomerId.ToString()));
             }
 
-            IList<BorrowRequest> requests = new List<BorrowRequest>();
-            var includeBook = new Book();
-            var includeCustomer = new Customer();
-            var includeUser = new ApiUser();
-
-            if (parameter.CreatedBy != null
-                || parameter.BookId != null || parameter.EndDate != null || parameter.Approved != null ||
-                parameter.StartDate != null
-                || parameter.DateRequested != null || parameter.Cancelled != null)
+            if (parameter.BookId != null)
             {
-                var filteredRequests = _unitOfWork.BorrowRequests.GetFiltered(parameter.includes)
-                     .Where(b => b.CreatedBy == parameter.CreatedBy || string.IsNullOrWhiteSpace(parameter.CreatedBy))
-                     .Where(b => b.BookId.ToString() == parameter.BookId || string.IsNullOrWhiteSpace(parameter.BookId))
-                     .Where(b => b.StartDate >= parameter.StartDate)
-                     .Where(b => b.EndDate <= parameter.EndDate)
-                     .Where(b => b.DateRequested.AddDays(1) >= parameter.DateRequested &&
-                                 b.DateRequested.AddDays(-1) <= parameter.DateRequested)
-                     .Where(b => b.Cancelled == parameter.Cancelled)
-                     .ToPagedList(parameter.RequestParameters.PageNumber,
-                         parameter.RequestParameters.PageSize);
-                return Ok(_mapper.Map<IList<BookDto>>(filteredRequests));
+                filteredRequest.Where(b =>
+                    b.BookId == parameter.BookId || string.IsNullOrWhiteSpace(parameter.BookId.ToString()));
             }
+
+            var date = new DateTime(2000, 1, 1);
+            if (parameter.StartDate != null)
+            {
+                filteredRequest.Where(b => b.StartDate.Date >= parameter.StartDate);
+            }
+
+            if (parameter.EndDate != null)
+            {
+                filteredRequest.Where(b => b.EndDate <= parameter.EndDate);
+            }
+
+            if (parameter.Approved != null)
+            {
+                filteredRequest.Where(b => b.Approved == parameter.Approved);
+            }
+
+            filteredRequest.ToPagedList(parameter.RequestParameters.PageNumber,
+                parameter.RequestParameters.PageSize);
             //if (parameter.includes != null)
             //{
             //    foreach (var request in requests)
@@ -63,9 +76,7 @@ namespace Api.Controllers
             //        request.Customer.User = includeUser;
             //    }
             //}
-            requests = await _unitOfWork.BorrowRequests.GetAll(null, parameter.includes);
-
-            return Ok(_mapper.Map<IList<BorrowRequestDto>>(requests));
+            return Ok(_mapper.Map<IList<BorrowRequestDto>>(filteredRequest));
         }
         // GET api/<BorrowRequestsController>/5
         [HttpGet("{id}")]
@@ -90,7 +101,9 @@ namespace Api.Controllers
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] UpdateBorrowRequestDto borrowRequestDto)
         {
-            var borrowRequest = await _unitOfWork.BorrowRequests.Get(r => r.Id == id,new List<string>{"Book","Customer"});
+            var borrowRequest = await _unitOfWork.BorrowRequests.Get(r => r.Id == id);
+            borrowRequest.Book = null;
+            borrowRequest.Customer = null;
             if (borrowRequest == null)
                 throw new NotFoundException("borrowRequest not found", id);
             _mapper.Map(borrowRequestDto, borrowRequest);
