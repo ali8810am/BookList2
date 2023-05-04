@@ -34,25 +34,42 @@ namespace View.Services
         {
             var bookDto = _mapper.Map<CreateBookDto>(book);
             AddBearerToken();
-            await _client.BooksPOSTAsync(bookDto);
-            return new Response<int>
+            var apiResponse= await _client.BooksPOSTAsync(bookDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
             {
-            };
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
         public async Task<Response<int>> UpdateBook(int id, CreateBookVm book)
         {
             var bookDto = _mapper.Map<CreateBookDto>(book);
             AddBearerToken();
-            await _client.BooksPUTAsync(id, bookDto);
-            return new Response<int> { };
+           var apiResponse= await _client.BooksPUTAsync(id, bookDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
+            {
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
-        public async Task<Response<int>> DeleteBook(int id)
+        public async Task DeleteBook(int id)
         {
             await _client.BooksDELETEAsync(id);
             AddBearerToken();
-            return new Response<int> { };
         }
     }
 }

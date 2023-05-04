@@ -1,4 +1,4 @@
-﻿namespace Api.ConstantParameters
+﻿namespace View.ConstantParameters
 {
     public static class UserRoles
     {

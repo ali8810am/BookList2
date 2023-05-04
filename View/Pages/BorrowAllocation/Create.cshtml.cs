@@ -1,13 +1,17 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
+using System.Data;
+using View.ConstantParameters;
 using View.Contracts;
 using View.Model;
 using View.Services;
 
 namespace View.Pages.BorrowAllocation
 {
+    [Authorize(Roles = $"{UserRoles.Employee},{UserRoles.Admin}")]
     public class CreateModel : PageModel
     {
         private readonly IBorrowAllocationService _borrowAllocationService;
@@ -56,13 +60,11 @@ namespace View.Pages.BorrowAllocation
                 var userId = _userService.GetCurrentUserId();
                 var emp = await _employeeService.GetEmployeeByUserId(userId);
                 Allocation.EmployeeId = emp.EmployeeId;
-            await _borrowAllocationService.CreateBorrowAllocation(Allocation);
-                //if (response.Success)
-                //{
-                //    return LocalRedirect("/BorrowRequest/Index");
-                //}
-                //ModelState.AddModelError("", response.ValidationErrors);
-                return Page();
+           var response= await _borrowAllocationService.CreateBorrowAllocation(Allocation);
+            if (response.Success)
+                return LocalRedirect("/BorrowAllocation/Index");
+            ModelState.AddModelError("", response.ValidationErrors);
+            return Page();
             }
             return Page();
         }

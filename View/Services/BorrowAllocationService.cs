@@ -19,14 +19,14 @@ namespace View.Services
         }
         public async Task<List<BorrowAllocationVm>> GetBorrowAllocations()
         {
-            var borrowAllocations = await _client.GetAllAllocationsAsync(null, null, new List<string>{"Book","Customer","Employee"});
+            var borrowAllocations = await _client.GetAllAllocationsAsync(null, null, new List<string> { "Book", "Customer", "Employee" });
             return _mapper.Map<List<BorrowAllocationVm>>(borrowAllocations);
         }
 
         public async Task<BorrowAllocationVm> GetBorrowAllocation(int id, List<string>? include)
         {
             include ??= new List<string>();
-            var borrowAllocation = await _client.BorrowAllocationGETAsync(id,include);
+            var borrowAllocation = await _client.BorrowAllocationGETAsync(id, include);
             return _mapper.Map<BorrowAllocationVm>(borrowAllocation);
         }
 
@@ -36,25 +36,42 @@ namespace View.Services
         {
             var borrowAllocationDto = _mapper.Map<CreateBorrowAllocationDto>(borrowAllocation);
             AddBearerToken();
-            await _client.BorrowAllocationPOSTAsync(borrowAllocationDto);
-            return new Response<int>
+            var apiResponse = await _client.BorrowAllocationPOSTAsync(borrowAllocationDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
             {
-            };
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
-        public async Task<Response<int>> UpdateBorrowAllocation(int id,CreateBorrowAllocationVm borrowAllocation)
+        public async Task<Response<int>> UpdateBorrowAllocation(int id, CreateBorrowAllocationVm borrowAllocation)
         {
             var borrowAllocationDto = _mapper.Map<CreateBorrowAllocationDto>(borrowAllocation);
             AddBearerToken();
-            await _client.BorrowAllocationPUTAsync(id, borrowAllocationDto);
-            return new Response<int> {Success = true};
+            var apiResponse = await _client.BorrowAllocationPUTAsync(id, borrowAllocationDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
+            {
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
-        public async Task<Response<int>> DeleteBorrowAllocation(int id)
+        public async Task DeleteBorrowAllocation(int id)
         {
             await _client.BorrowAllocationDELETEAsync(id);
             AddBearerToken();
-            return new Response<int> { };
         }
     }
 }

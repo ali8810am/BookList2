@@ -1,9 +1,12 @@
-﻿using Api.Data;
+﻿using Api.ConstantParameters;
+using Api.Data;
 using Api.Exceptions;
 using Api.IRepository;
 using Api.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,6 +14,7 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = $"{UserRoles.Employee},{UserRoles.Admin}")]
     public class CustomerController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;

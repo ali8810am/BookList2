@@ -9,6 +9,6 @@ namespace View.Contracts
         Task<BookVm> GetBook(int id);
         Task<Response<int>> CreateBook(CreateBookVm book);
         Task<Response<int>> UpdateBook(int id, CreateBookVm book);
-        Task<Response<int>> DeleteBook(int id);
+        Task DeleteBook(int id);
     }
 }

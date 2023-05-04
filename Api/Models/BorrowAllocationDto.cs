@@ -5,11 +5,9 @@ namespace Api.Models
 {
     public class CreateBorrowAllocationDto
     {
-        [Required]
-        [DataType(DataType.DateTime)]
+    
         public DateTime BorrowStartDate { get; set; }
-        [Required]
-        [DataType(DataType.DateTime)]
+ 
         public DateTime BorrowEndDate { get; set; }
       
         public int BookId { get; set; }

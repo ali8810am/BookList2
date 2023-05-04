@@ -63,15 +63,6 @@ namespace Api.Services
                 }
                 .Union(userClaims)
                 .Union(roleClaims);
-            //var claims = new List<Claim>
-            //{
-            //    new Claim(ClaimTypes.Name, _user.UserName)
-            //};
-            //var roles = await _userManager.GetRolesAsync(_user);
-            //foreach (var role in roles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role));
-            //}
             return claims;
         }
 
@@ -99,7 +90,7 @@ namespace Api.Services
                 var validation = await ValidateUser(request);
                 if (validation == false)
                 {
-                    throw new BadRequestException($"Credentials for '{request.UserName} aren't valid'.");
+                    throw new NotFoundException($"Credentials for '{request.UserName} aren't valid'.",request);
                 }
 
                 var jwtSecurityToken = await CreateToken();
@@ -135,15 +126,37 @@ namespace Api.Services
 
             if (creationResult.Succeeded)
             {
-                var roleExist = await _roleManager.RoleExistsAsync(UserRoles.Admin);
-                if (roleExist == false)
-                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-                var roleResult= await _userManager.AddToRoleAsync(user, UserRoles.Admin);
-              if (!roleResult.Succeeded)
-              {
-                 await _userManager.DeleteAsync(_user);
-                 throw new Exception("sorry. Please try again");
-              }
+                var validRoles = new List<string>();
+                foreach (var role in request.Roles)
+                {
+                    switch (role)
+                    {
+                        case UserRoles.User:
+                            validRoles.Add(UserRoles.User);
+                            continue;
+                        case UserRoles.Admin:
+                            validRoles.Add(UserRoles.Admin);
+                            continue;
+                        case UserRoles.Employee:
+                            validRoles.Add(UserRoles.Employee);
+                            continue;
+                        case UserRoles.Customer:
+                            validRoles.Add(UserRoles.Customer);
+                            continue;
+                    }
+                }
+                foreach (var role in validRoles)
+                {
+                    var roleExist = await _roleManager.RoleExistsAsync(UserRoles.Admin);
+                    if (roleExist == false)
+                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                    var roleResult = await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    if (!roleResult.Succeeded)
+                    {
+                        await _userManager.DeleteAsync(_user);
+                        throw new BadRequestException("sorry. Please try again");
+                    }
+                }
                 return new RegisterResponseDto { UserId = user.Id };
             }
             else
@@ -156,13 +169,6 @@ namespace Api.Services
 
                 throw new BadRequestException($"{str}");
             }
-        }
-
-        public ApiUser GetUserByUserId(string userId)
-        {
-            var user = new ApiUser();
-           user= _userManager.Users.FirstOrDefault(u=>u.Id==userId);
-           return user;
         }
     }
 }

@@ -1,11 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
+using View.ConstantParameters;
 using View.Contracts;
 using View.Model;
 using View.Services;
 
 namespace View.Pages.BorrowRequest
 {
+    [Authorize(Roles = $"{UserRoles.Customer},{UserRoles.Admin}")]
     public class IndexModel : PageModel
     {
 

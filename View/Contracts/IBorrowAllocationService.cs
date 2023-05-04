@@ -9,6 +9,6 @@ namespace View.Contracts
         Task<BorrowAllocationVm> GetBorrowAllocation(int id, List<string>? include);
         Task<Response<int>> CreateBorrowAllocation(CreateBorrowAllocationVm borrowAllocation);
         Task<Response<int>> UpdateBorrowAllocation(int id,CreateBorrowAllocationVm borrowAllocation);
-        Task<Response<int>> DeleteBorrowAllocation(int id);
+        Task DeleteBorrowAllocation(int id);
     }
 }

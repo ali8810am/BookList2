@@ -2,11 +2,14 @@ using View.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using View.ConstantParameters;
 using View.Contracts;
 using View.Model;
 
 namespace View.Pages.Book
 {
+    [Authorize(Roles = $"{UserRoles.Employee},{UserRoles.Admin}")]
     public class CreateModel : PageModel
     {
         private readonly IBookService _bookService;
@@ -25,8 +28,11 @@ namespace View.Pages.Book
         {
             if (ModelState.IsValid)
             {
-                await _bookService.CreateBook(Book);
-                return LocalRedirect("/Book/Index");
+               var response= await _bookService.CreateBook(Book);
+               if (response.Success)
+                   return LocalRedirect("/Book/Index");
+               ModelState.AddModelError("", response.ValidationErrors);
+               return Page();
             }
             else
             {

@@ -39,23 +39,40 @@ namespace View.Services
         public async Task<Response<int>> CreateBorrowRequest(CreateBorrowRequestVm borrowRequest)
         {
             var borrowRequestDto = _mapper.Map<CreateBorrowRequestDto>(borrowRequest);
-            await _client.BorrowRequestPOSTAsync(borrowRequestDto);
-            return new Response<int>
+           var apiResponse= await _client.BorrowRequestPOSTAsync(borrowRequestDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
             {
-            };
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
         public async Task<Response<int>> UpdateBorrowRequest(BorrowRequestVm borrowRequest)
         {
-            var borrowRequestDto = _mapper.Map<UpdateBorrowRequestDto>(borrowRequest);
-            await _client.BorrowRequestPUTAsync(borrowRequest.RequestId, borrowRequestDto);
-            return new Response<int>{Success = true};
+            var borrowRequestDto = _mapper.Map<CreateBorrowRequestDto>(borrowRequest);
+            var apiResponse= await _client.BorrowRequestPUTAsync(borrowRequest.RequestId, borrowRequestDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
+            {
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
-        public async Task<Response<int>> DeleteBorrowRequest(int id)
+        public async Task DeleteBorrowRequest(int id)
         {
             await _client.BorrowRequestDELETEAsync(id);
-            return new Response<int> { };
         }
     }
 }

@@ -4,9 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using View.Contracts;
 using View.Model;
+using View.Services.Base;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using View.ConstantParameters;
 
 namespace View.Pages.Booklist
 {
+    [Authorize(Roles = $"{UserRoles.Employee},{UserRoles.Admin}")]
     public class EditModel : PageModel
     {
         private readonly IBookService _bookService;
@@ -34,8 +39,11 @@ namespace View.Pages.Booklist
         {
             if (ModelState.IsValid)
             {
-                await _bookService.UpdateBook(BookId, Book);
-                return LocalRedirect("/Book/Index");
+               var response= await _bookService.UpdateBook(BookId, Book);
+                if (response.Success)
+                    return LocalRedirect("/Book/Index");
+                ModelState.AddModelError("", response.ValidationErrors);
+                return Page();
             }
             else
             {

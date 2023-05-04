@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
+using View.ConstantParameters;
 using View.Contracts;
 using View.Model;
 
 namespace View.Pages.BorrowAllocation
 {
+    [Authorize(Roles = $"{UserRoles.Employee},{UserRoles.Admin}")]
     public class DetailsModel : PageModel
     {
         private readonly IBorrowAllocationService _borrowAllocationService;

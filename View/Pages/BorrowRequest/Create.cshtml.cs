@@ -1,11 +1,15 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
+using View.ConstantParameters;
 using View.Contracts;
 using View.Model;
 
 namespace View.Pages.BorrowRequest
 {
+    [Authorize(Roles = $"{UserRoles.Customer},{UserRoles.Admin}")]
     public class CreateModel : PageModel
     {
         private readonly IBorrowRequestService _borrowRequestService;
@@ -44,7 +48,7 @@ namespace View.Pages.BorrowRequest
             if (ModelState.IsValid)
             {
                 var response = await _borrowRequestService.CreateBorrowRequest(Request);
-                if (!response.Success)
+                if (response.Success)
                     return LocalRedirect("/BorrowRequest/Index");
                 ModelState.AddModelError("", response.ValidationErrors);
                 return Page();
