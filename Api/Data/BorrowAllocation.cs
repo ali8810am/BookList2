@@ -19,6 +19,7 @@ namespace Api.Data
         public int CustomerId { get; set; }
         [ForeignKey("CustomerId")] 
         public Customer Customer { get; set; }
+        //public int RequestId { get; set; }
 
     }
 }

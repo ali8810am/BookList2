@@ -6,12 +6,12 @@ namespace Api.Services
     public class UserService:IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<ApiUser> _userManager;
+        //private readonly UserManager<ApiUser> _userManager;
 
         public UserService(IHttpContextAccessor httpContextAccessor, UserManager<ApiUser> userManager)
         {
             _httpContextAccessor = httpContextAccessor;
-            _userManager = userManager;
+            //_userManager = userManager;
         }
         public string GetCurrentUserName()
         {
@@ -19,11 +19,6 @@ namespace Api.Services
 
                return name;
         }
-        public ApiUser GetUserByUserId(string userId)
-        {
-            var user = new ApiUser();
-            user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
-            return user;
-        }
+       
     }
 }

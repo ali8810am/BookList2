@@ -26,12 +26,12 @@ namespace Api.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
+        private readonly IAuthManager _userService;
         private readonly ICustomerRepository _customerRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IEmployeeRepository _employeeRepository;
 
-        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper, IUserService userService, ICustomerRepository customerRepository, IBookRepository bookRepository, IEmployeeRepository employeeRepository)
+        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper, IAuthManager userService, ICustomerRepository customerRepository, IBookRepository bookRepository, IEmployeeRepository employeeRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -185,29 +185,48 @@ namespace Api.Controllers
 
         // POST api/<BorrowAllocationsController>
         [HttpPost]
-        public async Task<BaseCommandResponse> Post([FromBody] CreateBorrowAllocationDto borrowAllocationDto)
+        public async Task<CreateBorrowAllocationResponse> Post([FromBody] List<CreateBorrowAllocationDto> borrowAllocationDto)
         {
-            var response = new BaseCommandResponse();
+            var response = new CreateBorrowAllocationResponse();
             var validator = new CreateBorrowAllocationValidator(_customerRepository, _employeeRepository, _bookRepository);
-            var validationResult = await validator.ValidateAsync(borrowAllocationDto);
-            if (!validationResult.IsValid)
+            var invalidRequests = new List<CreateBorrowAllocationValidatorDto>();
+            var invalidResult = new CreateBorrowAllocationValidatorDto();
+            foreach (var allocation in borrowAllocationDto)
             {
-                response.Success = false;
-                response.Errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
-                response.Message = "CreationFailed";
+                var validationResult = await validator.ValidateAsync(allocation);
+                if (validationResult.IsValid) continue;
+                invalidResult.Errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+                invalidResult.RequestId = allocation.RequestId;
+                invalidRequests.Add(invalidResult);
+                borrowAllocationDto.Remove(allocation);
             }
 
-            else
+            foreach (var borrowAllocation in borrowAllocationDto.Select(allocation => _mapper.Map<BorrowAllocation>(borrowAllocationDto)))
             {
-                var borrowAllocation = _mapper.Map<BorrowAllocation>(borrowAllocationDto);
-                await _unitOfWork.BorrowAllocations.Add(borrowAllocation);
-                var book = await _unitOfWork.Books.Get(b => b.Id == borrowAllocation.BookId);
-                var bookForUpdate = _mapper.Map<Book>(book);
-                bookForUpdate.DateBackToLibrary = borrowAllocation.BorrowEndDate;
-                bookForUpdate.IsInLibrary = false;
-                _unitOfWork.Books.Update(bookForUpdate);
-                await _unitOfWork.Save();
+                try
+                {
+                    await _unitOfWork.BorrowAllocations.Add(borrowAllocation);
+                    var book = await _unitOfWork.Books.Get(b => b.Id == borrowAllocation.BookId);
+                    var bookForUpdate = _mapper.Map<Book>(book);
+                    bookForUpdate.DateBackToLibrary = borrowAllocation.BorrowEndDate;
+                    bookForUpdate.IsInLibrary = false;
+                    _unitOfWork.Books.Update(bookForUpdate);
+                    //var request= await _unitOfWork.BorrowRequests.Get(r => r.Id == borrowAllocation.RequestId);
+                    //request.Approved = true;
+                    //_unitOfWork.BorrowRequests.Update(request);
+                    //await _unitOfWork.Save();
+                }
+                catch (BadRequestException e)
+                {
+                    invalidResult.Errors.Add(e.Message);
+                    //invalidResult.RequestId = borrowAllocation.RequestId;
+                    invalidRequests.Add(invalidResult);
+                }
             }
+            if (invalidRequests.Count == 0) return response;
+            response.Success = false;
+            response.InvalidRequests = invalidRequests;
+            response.Message = "Creation for some requests Failed";
             return response;
         }
 
@@ -225,7 +244,7 @@ namespace Api.Controllers
                 response.Message = "CreationFailed";
             }
 
-            if (id==0)
+            if (id == 0)
                 response.Errors.Add("Id must greater than 0");
             else
             {

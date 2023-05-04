@@ -170,5 +170,11 @@ namespace Api.Services
                 throw new BadRequestException($"{str}");
             }
         }
+        public ApiUser GetUserByUserId(string userId)
+        {
+            var user = new ApiUser();
+            user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
+            return user;
+        }
     }
 }
