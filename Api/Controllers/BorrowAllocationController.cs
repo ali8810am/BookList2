@@ -211,15 +211,15 @@ namespace Api.Controllers
                     bookForUpdate.DateBackToLibrary = borrowAllocation.BorrowEndDate;
                     bookForUpdate.IsInLibrary = false;
                     _unitOfWork.Books.Update(bookForUpdate);
-                    //var request= await _unitOfWork.BorrowRequests.Get(r => r.Id == borrowAllocation.RequestId);
-                    //request.Approved = true;
-                    //_unitOfWork.BorrowRequests.Update(request);
-                    //await _unitOfWork.Save();
+                    var request = await _unitOfWork.BorrowRequests.Get(r => r.Id == borrowAllocation.RequestId);
+                    request.Approved = true;
+                    _unitOfWork.BorrowRequests.Update(request);
+                    await _unitOfWork.Save();
                 }
                 catch (BadRequestException e)
                 {
                     invalidResult.Errors.Add(e.Message);
-                    //invalidResult.RequestId = borrowAllocation.RequestId;
+                    invalidResult.RequestId = borrowAllocation.RequestId;
                     invalidRequests.Add(invalidResult);
                 }
             }

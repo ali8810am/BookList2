@@ -129,28 +129,28 @@ namespace Api.Services
                 var validRoles = new List<string>();
                 foreach (var role in request.Roles)
                 {
-                    switch (role)
+                    switch (role.ToLower())
                     {
                         case UserRoles.User:
                             validRoles.Add(UserRoles.User);
-                            continue;
+                            break;
                         case UserRoles.Admin:
                             validRoles.Add(UserRoles.Admin);
-                            continue;
-                        case UserRoles.Employee:
-                            validRoles.Add(UserRoles.Employee);
-                            continue;
+                            break;
                         case UserRoles.Customer:
                             validRoles.Add(UserRoles.Customer);
-                            continue;
+                            break;
+                        case UserRoles.Employee:
+                            validRoles.Add(UserRoles.Employee);
+                            break;
                     }
                 }
                 foreach (var role in validRoles)
                 {
-                    var roleExist = await _roleManager.RoleExistsAsync(UserRoles.Admin);
+                    var roleExist = await _roleManager.RoleExistsAsync(role);
                     if (roleExist == false)
-                        await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-                    var roleResult = await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                        await _roleManager.CreateAsync(new IdentityRole(role));
+                    var roleResult = await _userManager.AddToRoleAsync(user,role);
                     if (!roleResult.Succeeded)
                     {
                         await _userManager.DeleteAsync(_user);

@@ -4,6 +4,7 @@ using View.Services;
 using View.Services.Base;
 using System.Reflection;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using View.Middleware;
 using Assembly = System.Reflection.Assembly;
 using PathString = Microsoft.AspNetCore.Http.PathString;
 
@@ -55,5 +56,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+//app.UseMiddleware<RequestMiddleware>();
 
 app.Run();

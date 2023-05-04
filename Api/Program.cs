@@ -1,6 +1,7 @@
 using Api;
 using Api.Data;
 using Api.IRepository;
+using Api.Middlewares;
 using Api.Profile;
 using Api.Repository;
 using Api.Services;
@@ -67,5 +68,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();

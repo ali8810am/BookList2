@@ -1,4 +1,5 @@
 ﻿@page
+@using View.ConstantParameters
 @model View.Pages.User.RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -43,15 +44,19 @@
                 <input asp-for="RegisterVm.PhoneNumber" class="form-control" />
                 <span asp-validation-for="RegisterVm.PhoneNumber" class="text-danger"></span>
             </div>
+            <input/>
+            <input asp-for="RegisterVm.Roles" type="hidden" class="form-control" />
+            <select asp-for="Role" class="form-select" aria-label="Role">
+                <option value="@UserRoles.User" selected>User</option>
+                <option value="@UserRoles.Admin">Admin</option>
+                <option value="@UserRoles.Customer">Customer</option>
+                <option value="@UserRoles.Employee">Employee</option>
+            </select>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Register">Back to List</a>
 </div>
 
 @section Scripts {

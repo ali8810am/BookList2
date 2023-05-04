@@ -7,10 +7,10 @@ namespace Api.Data
     {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public ApiUser User { get; set; }= new ApiUser();
+        public virtual ApiUser User { get; set; }= new ApiUser();
         public DateTime DateMembered { get; set; }
         public int MembershipRate { get; set; }
-        public List<BorrowAllocation>? BorrowAllocations { get; set; }
-        public List<BorrowRequest>? BorrowRequests { get; set; }
+        public virtual List<BorrowAllocation> BorrowAllocations { get; set; }
+        public virtual List<BorrowRequest> BorrowRequests { get; set; }
     }
 }

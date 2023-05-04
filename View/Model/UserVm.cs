@@ -22,6 +22,7 @@ namespace View.Model
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+        [Required] public List<string> Roles { get; set; }
     }
 
     public class UserVm

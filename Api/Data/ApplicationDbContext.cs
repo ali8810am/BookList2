@@ -26,14 +26,14 @@ namespace Api.Data
             builder.Entity<BorrowAllocation>().HasOne<Employee>(a => a.Employee).WithMany(e => e.BorrowAllocations)
                 .HasForeignKey("EmployeeId")
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<BorrowAllocation>().HasOne<Customer>(a => a.Customer).WithMany(c => c.BorrowAllocations)
-                .HasForeignKey("CustomerId")
-                .OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<BorrowRequest>().HasOne<Customer>(r => r.Customer).WithMany(c => c.BorrowRequests)
-                .HasForeignKey("CustomerId")
-                .OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<BorrowRequest>().HasOne<Book>(r => r.Book).WithMany(b => b.BorrowRequests).HasForeignKey("BookId")
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<BorrowAllocation>().HasOne<Customer>(a => a.Customer).WithMany(c => c.BorrowAllocations)
+            //    .HasForeignKey("CustomerId")
+            //    .OnDelete(DeleteBehavior.Cascade);
+            //builder.Entity<BorrowRequest>().HasOne<Customer>(r => r.Customer).WithMany(c => c.BorrowRequests)
+            //    .HasForeignKey("CustomerId")
+            //    .OnDelete(DeleteBehavior.Cascade);
+            //builder.Entity<BorrowRequest>().HasOne<Book>(r => r.Book).WithMany(b => b.BorrowRequests).HasForeignKey("BookId")
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
 

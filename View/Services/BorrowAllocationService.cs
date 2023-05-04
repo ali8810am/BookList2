@@ -32,9 +32,9 @@ namespace View.Services
 
 
 
-        public async Task<Response<int>> CreateBorrowAllocation(CreateBorrowAllocationVm borrowAllocation)
+        public async Task<Response<int>> CreateBorrowAllocation(List<CreateBorrowAllocationVm> borrowAllocation)
         {
-            var borrowAllocationDto = _mapper.Map<CreateBorrowAllocationDto>(borrowAllocation);
+            var borrowAllocationDto = _mapper.Map<List<CreateBorrowAllocationDto>>(borrowAllocation);
             AddBearerToken();
             var apiResponse = await _client.BorrowAllocationPOSTAsync(borrowAllocationDto);
             var response = new Response<int>();
@@ -42,9 +42,29 @@ namespace View.Services
                 response.Success = true;
             else
             {
-                foreach (var error in apiResponse.Errors)
+                foreach (var error in apiResponse.InvalidRequests)
                 {
-                    response.ValidationErrors += error + Environment.NewLine;
+                    response.ValidationErrors +=error.RequestId.ToString() + error.Errors + Environment.NewLine;
+                }
+            }
+            return response;
+        }
+
+        public async Task<Response<int>> CreateBorrowAllocation(CreateBorrowAllocationVm borrowAllocation)
+        {
+            var list = new List<CreateBorrowAllocationVm>();
+            list.Add(borrowAllocation);
+            var borrowAllocationDto = _mapper.Map<List<CreateBorrowAllocationDto>>(list);
+            AddBearerToken();
+            var apiResponse = await _client.BorrowAllocationPOSTAsync(borrowAllocationDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
+            {
+                foreach (var error in apiResponse.InvalidRequests)
+                {
+                    response.ValidationErrors += error.RequestId.ToString() + error.Errors + Environment.NewLine;
                 }
             }
             return response;

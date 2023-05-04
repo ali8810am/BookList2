@@ -8,10 +8,9 @@ namespace Api.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         //private readonly UserManager<ApiUser> _userManager;
 
-        public UserService(IHttpContextAccessor httpContextAccessor, UserManager<ApiUser> userManager)
+        public UserService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            //_userManager = userManager;
         }
         public string GetCurrentUserName()
         {

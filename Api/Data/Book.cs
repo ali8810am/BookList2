@@ -9,8 +9,8 @@ namespace Api.Data
 
         public DateTime? DateBackToLibrary { get; set; }
         public bool IsInLibrary { get; set; } = true;
-        public List<BorrowAllocation>? BorrowAllocations { get; set; }
-        public List<BorrowRequest>? BorrowRequests { get; set; }
+        public virtual List<BorrowAllocation> BorrowAllocations { get; set; }
+        public virtual List<BorrowRequest> BorrowRequests { get; set; }
 
 
     }
