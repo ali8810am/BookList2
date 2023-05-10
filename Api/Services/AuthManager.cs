@@ -5,9 +5,14 @@ using System.Text;
 using Api.ConstantParameters;
 using Api.Data;
 using Api.Exceptions;
+using Api.IRepository;
+using Api.Models;
 using Api.Models.Identity;
+using Api.Responses;
+using AutoMapper;
 using Azure.Core;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Api.Services
@@ -19,13 +24,17 @@ namespace Api.Services
         private readonly SignInManager<ApiUser> _signInManager;
         private readonly IConfiguration _config;
         private ApiUser _user;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public AuthManager(UserManager<ApiUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApiUser> signInManager, IConfiguration config)
+        public AuthManager(IMapper mapper,IUnitOfWork unitOfWork, UserManager<ApiUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApiUser> signInManager, IConfiguration config)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _config = config;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         private async Task<string> CreateToken()
         {
@@ -90,11 +99,12 @@ namespace Api.Services
                 var validation = await ValidateUser(request);
                 if (validation == false)
                 {
-                    throw new NotFoundException($"Credentials for '{request.UserName} aren't valid'.",request);
+                    throw new NotFoundException($"Credentials for '{request.UserName} aren't valid'.", request);
                 }
+                //var user = await _userManager.FindByNameAsync(request.UserName);
+                //await _signInManager.SignInAsync(user, true);
 
                 var jwtSecurityToken = await CreateToken();
-
                 var response = new LoginResponseDto()
                 {
                     UserId = _user.Id,
@@ -119,6 +129,7 @@ namespace Api.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
+                PhoneNumber = request.PhoneNumber,
                 EmailConfirmed = true
             };
 
@@ -139,9 +150,13 @@ namespace Api.Services
                             break;
                         case UserRoles.Customer:
                             validRoles.Add(UserRoles.Customer);
+
                             break;
                         case UserRoles.Employee:
                             validRoles.Add(UserRoles.Employee);
+                            break;
+                        default:
+                            validRoles.Add(UserRoles.User);
                             break;
                     }
                 }
@@ -150,13 +165,26 @@ namespace Api.Services
                     var roleExist = await _roleManager.RoleExistsAsync(role);
                     if (roleExist == false)
                         await _roleManager.CreateAsync(new IdentityRole(role));
-                    var roleResult = await _userManager.AddToRoleAsync(user,role);
+                    var roleResult = await _userManager.AddToRoleAsync(user, role);
                     if (!roleResult.Succeeded)
                     {
                         await _userManager.DeleteAsync(_user);
                         throw new BadRequestException("sorry. Please try again");
                     }
                 }
+
+                if (validRoles.Any(r => r == UserRoles.Customer))
+                {
+
+                    var customer = new Customer { UserId = user.Id, MembershipRate = 1, User = null, DateMembered = DateTime.Now };
+                    await _unitOfWork.Customers.Add(customer);
+                }
+                if (request.Roles.Any(r => r == UserRoles.Employee))
+                {
+                    var employee = new Employee { UserId = user.Id, DateHired = DateTime.Now, Duty = "",User = null};
+                    await _unitOfWork.Employee.Add(employee);
+                }
+                await _unitOfWork.Save();
                 return new RegisterResponseDto { UserId = user.Id };
             }
             else
@@ -176,5 +204,23 @@ namespace Api.Services
             user = _userManager.Users.FirstOrDefault(u => u.Id == userId);
             return user;
         }
+
+        public async Task<ExistUserResponse> ExistUser(string? username, string? email, string? phoneNumber)
+        {
+            var response = new ExistUserResponse();
+            response.ExistEmail = await _userManager.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+            response.ExistUsername = await _userManager.Users.AnyAsync(u => u.UserName == username);
+            response.ExistPhoneNumber = await _userManager.Users.AnyAsync(u => u.PhoneNumber.ToLower() == phoneNumber.ToLower());
+            return response;
+
+
+        }
+
+        public async Task<bool> ExistUser(string userId)
+        {
+            return await _userManager.Users.AnyAsync(u => u.Id==userId);
+
+        }
+
     }
 }

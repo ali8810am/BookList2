@@ -17,16 +17,12 @@ namespace View.Profile
             CreateMap<CreateBookDto, CreateBookVm>().ReverseMap();
 
             CreateMap<BorrowAllocationDto, BorrowAllocationVm>()
+                .ForMember(dest => dest.DateReturned, option => option.MapFrom(src => src.DateReturned.Value.DateTime))
                 .ForMember(dest => dest.DateApproved, option => option.MapFrom(src => src.DateApproved.DateTime))
                 .ForMember(dest => dest.BorrowStartDate, option => option.MapFrom(src => src.BorrowStartDate.DateTime))
                 .ForMember(dest => dest.BorrowEndDate, option => option.MapFrom(src => src.BorrowEndDate.DateTime))
-
-
                 .ReverseMap();
-            CreateMap<CreateBorrowAllocationDto, CreateBorrowAllocationVm>()
-                .ForMember(dest => dest.CreateBy, option => option.MapFrom(src => src.CreatedBy))
-
-                .ReverseMap();
+            CreateMap<CreateBorrowAllocationDto, CreateBorrowAllocationVm>().ReverseMap();
             CreateMap<BorrowAllocationDto, CreateBorrowAllocationVm>().ReverseMap();
 
             CreateMap<BorrowRequestDto, BorrowRequestVm>()

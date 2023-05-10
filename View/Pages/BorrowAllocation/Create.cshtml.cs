@@ -46,6 +46,7 @@ namespace View.Pages.BorrowAllocation
             Allocation.CustomerId = request.CustomerId;
             Allocation.DateApproved = DateTime.Now;
             Allocation.IsReturned = false;
+            Allocation.RequestId =request.RequestId;
     
             
             
@@ -54,7 +55,6 @@ namespace View.Pages.BorrowAllocation
 
         public async Task<IActionResult> OnPost(int id)
         {
-            Allocation.CreateBy = _userService.GetCurrentUserName();
             if (ModelState.IsValid)
             {
                 var userId = _userService.GetCurrentUserId();

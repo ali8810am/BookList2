@@ -22,7 +22,6 @@ namespace Api.Models
         public string RequestComments { get; set; }
         public bool? Approved { get; set; }
         public bool Cancelled { get; set; }
-        public string? CreatedBy { get; set; }
 
     }
 
@@ -31,7 +30,12 @@ namespace Api.Models
         public int RequestId { get; set; }
         public BookDto Book { get; set; }
         public CustomerDto Customer { get; set; }
-        public string? UpdatedBy { get; set; }
+    }
+
+    public class GetBorrowRequestDto
+    {
+        public int id { get; set; }
+        public List<string> includes { get; set; }
     }
 
     //public class UpdateBorrowRequestDto

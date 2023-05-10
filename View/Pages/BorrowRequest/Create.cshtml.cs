@@ -41,7 +41,6 @@ namespace View.Pages.BorrowRequest
         public async Task<IActionResult> OnPost()
         {
             Request.DateRequested = DateTime.Now;
-            Request.CreatedBy = _userService.GetCurrentUserName();
             var userId = _userService.GetCurrentUserId();
             var customer = await _customerService.GetCustomerByUserId(userId);
             Request.CustomerId = customer.CustomerId;

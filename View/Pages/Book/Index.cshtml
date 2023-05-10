@@ -1,5 +1,6 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using View.ConstantParameters
 @model View.Pages.Book.IndexModel
 @{
 }
@@ -37,13 +38,21 @@
                          <td>
                              @item.Author
                          </td>
-                         <td>
-                            <a asp-page="/BorrowRequest/Create" asp-route-bookId="@item.Id" class="btn btn-warning btn-sm">Borrow</a>
-                         </td>
-                         <td>
-                             <a asp-page="/Book/Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                             <a asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-                         </td>
+                         @if (User.IsInRole(UserRoles.Customer))
+                         {
+
+                         
+                             <td>
+                                 <a asp-page="/BorrowRequest/Create" asp-route-bookId="@item.Id" class="btn btn-warning btn-sm">Borrow</a>
+                             </td>
+                         }
+                    @if (User.IsInRole(UserRoles.Employee))
+                    {
+                        <td>
+                            <a asp-page="/Book/Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-page-handler="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    }
                      </tr>   
                     }
             </table>

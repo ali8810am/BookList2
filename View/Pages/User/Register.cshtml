@@ -44,8 +44,7 @@
                 <input asp-for="RegisterVm.PhoneNumber" class="form-control" />
                 <span asp-validation-for="RegisterVm.PhoneNumber" class="text-danger"></span>
             </div>
-            <input/>
-            <input asp-for="RegisterVm.Roles" type="hidden" class="form-control" />
+
             <select asp-for="Role" class="form-select" aria-label="Role">
                 <option value="@UserRoles.User" selected>User</option>
                 <option value="@UserRoles.Admin">Admin</option>

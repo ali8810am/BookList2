@@ -39,7 +39,6 @@ namespace View.Pages.BorrowAllocation
 
         public async Task<IActionResult> OnPost()
         {
-            Allocation.CreateBy = "NotAuthenticated";
             if (ModelState.IsValid)
             {
                 var response = await _borrowAllocationService.UpdateBorrowAllocation(Id,Allocation);

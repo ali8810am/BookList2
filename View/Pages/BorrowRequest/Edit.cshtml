@@ -20,6 +20,7 @@
     <form method="post">
         <div asp-validation-summary="All"></div>
         <input asp-for="Request.RequestId" type="hidden" />
+        <input asp-for="Request.CustomerId" type="hidden" />
         <input asp-for="Request.DateRequested" type="hidden" />
         <input asp-for="Request.BookId" type="hidden" />
         <div class="form-group row">

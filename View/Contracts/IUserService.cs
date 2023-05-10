@@ -1,4 +1,5 @@
 ﻿using View.Model;
+using View.Services.Base;
 
 namespace View.Contracts
 {
@@ -9,5 +10,6 @@ namespace View.Contracts
         Task<bool> Register(UserRegisterVm user);
         string GetCurrentUserName();
         string GetCurrentUserId();
+        Task<ExistUserResponse> ExistUser(ExistUserDto user);
     }
 }

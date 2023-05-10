@@ -7,14 +7,12 @@ using Microsoft.EntityFrameworkCore.Design.Internal;
 
 namespace Api.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApiUser>
+    public class ApplicationDbContext : AuditableDbContext
     {
-        private readonly IUserService _userService;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IUserService userService)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            _userService = userService;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -35,39 +33,6 @@ namespace Api.Data
             //builder.Entity<BorrowRequest>().HasOne<Book>(r => r.Book).WithMany(b => b.BorrowRequests).HasForeignKey("BookId")
             //    .OnDelete(DeleteBehavior.Cascade);
         }
-
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            foreach (var entry in ChangeTracker.Entries<BaseDomainObject>())
-            {
-                entry.Entity.UpdatedDateTime = DateTime.Now;
-                entry.Entity.UpdatedBy = _userService.GetCurrentUserName();
-                if (entry.State == EntityState.Added)
-                {
-                    entry.Entity.CreatedDateTime = DateTime.Now;
-                    entry.Entity.CreatedBy = _userService.GetCurrentUserName();
-                }
-                //var entries = ChangeTracker
-                //    .Entries()
-                //    .Where(e => e.Entity is BaseDomainObject && (
-                //        e.State == EntityState.Added
-                //        || e.State == EntityState.Modified));
-
-                //foreach (var entityEntry in entries)
-                //{
-                //    ((BaseDomainObject)entityEntry.Entity).UpdatedDateTime = DateTime.Now;
-                //    ((BaseDomainObject)entityEntry.Entity).UpdatedBy = _userService.GetCurrentUserName();
-
-                //    if (entityEntry.State != EntityState.Added) continue;
-                //    ((BaseDomainObject)entityEntry.Entity).CreatedDateTime = DateTime.Now;
-                //    ((BaseDomainObject)entityEntry.Entity).CreatedBy = _userService.GetCurrentUserName();
-                //}
-
-            }
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
         public DbSet<Book> Books { get; set; }
         public DbSet<BorrowAllocation> BorrowAllocations { get; set; }
         public DbSet<BorrowRequest> BorrowRequests { get; set; }

@@ -38,18 +38,36 @@ namespace View.Services
         {
             var customerDto = _mapper.Map<CreateCustomerDto>(customer);
             AddBearerToken();
-            await _client.CustomerPOSTAsync(customerDto);
-            return new Response<int>
+           var apiResponse = await _client.CustomerPOSTAsync(customerDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
             {
-            };
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
         public async Task<Response<int>> UpdateCustomer(int id, CreateCustomerVm customer)
         {
             var customerDto = _mapper.Map<CreateCustomerDto>(customer);
             AddBearerToken();
-            await _client.CustomerPUTAsync(id, customerDto);
-            return new Response<int> { };
+           var apiResponse = await _client.CustomerPUTAsync(id, customerDto);
+            var response = new Response<int>();
+            if (apiResponse.Success)
+                response.Success = true;
+            else
+            {
+                foreach (var error in apiResponse.Errors)
+                {
+                    response.ValidationErrors += error + Environment.NewLine;
+                }
+            }
+            return response;
         }
 
         public async Task<Response<int>> DeleteCustomer(int id)

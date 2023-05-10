@@ -10,6 +10,7 @@ using Claim = System.Security.Claims.Claim;
 using ClaimsIdentity = System.Security.Claims.ClaimsIdentity;
 using ClaimsPrincipal = System.Security.Claims.ClaimsPrincipal;
 using Microsoft.Win32;
+using View.ConstantParameters;
 
 namespace View.Services
 {
@@ -66,11 +67,11 @@ namespace View.Services
         {
             var registrationRequest = _mapper.Map<RegisterRequestDto>(user);
             var response = await _client.RegisterAsync(registrationRequest);
-            if (!string.IsNullOrEmpty(response.UserId))
+            if (string.IsNullOrEmpty(response.UserId))
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
         public IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
         {
@@ -89,6 +90,11 @@ namespace View.Services
             var id = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(c=>c.Type== "uid").Value;
 
             return id;
+        }
+
+        public async Task<ExistUserResponse> ExistUser(ExistUserDto user)
+        {
+            return await _client.ExistUserAsync(user);
         }
     }
 }

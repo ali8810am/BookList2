@@ -1,5 +1,6 @@
 ﻿using Api.Data;
 using Api.IRepository;
+using Api.Models.Identity;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Api.Repository
@@ -7,20 +8,17 @@ namespace Api.Repository
     public class UnitOfWork:IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
         private IBookRepository _books;
         private IBorrowAllocationRepository _borrowAllocations;
         private IBorrowRequestRepository _borrowRequests;
         private ICustomerRepository _customerRepository;
         private IEmployeeRepository _employees;
 
-        public UnitOfWork(ApplicationDbContext context, IBookRepository books, IBorrowAllocationRepository borrowAllocations, IBorrowRequestRepository borrowRequests, ICustomerRepository customerRepository, IEmployeeRepository employees)
+        public UnitOfWork(ApplicationDbContext context,IHttpContextAccessor contextAccessor)
         {
-            _context = context;
-            _books = books;
-            _borrowAllocations = borrowAllocations;
-            _borrowRequests = borrowRequests;
-            _customerRepository = customerRepository;
-            _employees = employees;
+            this._contextAccessor=contextAccessor;
+            _context=context;
         }
         public void Dispose()
         {
@@ -36,7 +34,8 @@ namespace Api.Repository
 
         public async Task Save()
         {
-           await _context.SaveChangesAsync();
+            var username = _contextAccessor.HttpContext.User.FindFirst(CustomClaimTypes.UId)?.Value;
+            await _context.SaveChangesAsync(username);
         }
     }
 }

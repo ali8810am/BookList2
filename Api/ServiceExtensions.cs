@@ -4,6 +4,7 @@ using Api.IRepository;
 using Api.Models.Identity;
 using Api.Repository;
 using Api.Services;
+using AspNetCoreRateLimit;
 using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -120,7 +121,7 @@ namespace Api
             });
         }
 
-     
+        
 
         public static void ConfigureHttpCacheHeaders(this IServiceCollection services)
         {
@@ -136,6 +137,31 @@ namespace Api
                     validationOpt.MustRevalidate = true;
                 }
             );
+        }
+        public static void ConfigureRateLimiting(this IServiceCollection services, IConfiguration configuration)
+        {
+
+            services.AddMemoryCache();
+            var rateLimitRules = new List<RateLimitRule>
+            {
+                new RateLimitRule
+                {
+                    Endpoint = "*",
+                    Limit = 50,
+                    Period = "5s"
+                }
+            };
+            services.Configure<IpRateLimitOptions>(opt =>
+            {
+                opt.GeneralRules = rateLimitRules;
+            });
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddInMemoryRateLimiting();
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+            services.AddInMemoryRateLimiting();
+
+
         }
 
     }

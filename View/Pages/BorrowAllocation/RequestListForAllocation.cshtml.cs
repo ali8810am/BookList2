@@ -9,7 +9,7 @@ using View.Model;
 
 namespace View.Pages.BorrowAllocation
 {
-    [Authorize(Roles = $"{UserRoles.Employee},{UserRoles.Admin}")]
+    [Authorize(Roles = UserRoles.Employee)]
     public class RequestListForAllocationModel : PageModel
     {
         private readonly IBorrowRequestService _borrowRequestService;
@@ -30,7 +30,7 @@ namespace View.Pages.BorrowAllocation
         public List<BorrowRequestForAllocationListVm>? Requests { get; set; }
         public async Task OnGet()
         {
-            var requests = await _borrowRequestService.GetBorrowRequests();
+            var requests = await _borrowRequestService.GetBorrowRequests(false);
             Requests = _mapper.Map<List<BorrowRequestForAllocationListVm>>(requests);
         }
 
@@ -51,7 +51,8 @@ namespace View.Pages.BorrowAllocation
                     CustomerId = request.CustomerId,
                     DateApproved = DateTime.Now,
                     IsReturned = false,
-                    EmployeeId = emp.EmployeeId
+                    EmployeeId = emp.EmployeeId,
+                    RequestId = req.RequestId
                 };
                 allocationList.Add(allocate);
             }
@@ -60,13 +61,13 @@ namespace View.Pages.BorrowAllocation
             {
                await _borrowAllocationService.CreateBorrowAllocation(all);
             }
-            Requests = Requests.Where(r => r.Allocate == true||r.Reject==true).ToList();
+            //Requests = Requests.Where(r => r.Allocate == true||r.Reject==true).ToList();
 
-            foreach (var req in Requests)
-            {
-                await _borrowRequestService.DeleteBorrowRequest(req.RequestId);
+            //foreach (var req in Requests)
+            //{
+            //    await _borrowRequestService.DeleteBorrowRequest(req.RequestId);
 
-            }
+            //}
 
             return LocalRedirect("/");
         }

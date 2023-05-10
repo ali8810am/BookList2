@@ -14,6 +14,7 @@ namespace View.Model
         public DateTime BorrowEndDate { get; set; }
 
         public int BookId { get; set; }
+        public int RequestId { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
@@ -24,7 +25,6 @@ namespace View.Model
         public int CustomerId { get; set; }
         public bool IsReturned { get; set; }
         [DataType(DataType.DateTime)] public DateTime? DateReturned { get; set; }
-        public string? CreateBy { get; set; }
     }
 
     public class BorrowAllocationVm : CreateBorrowAllocationVm
@@ -33,6 +33,10 @@ namespace View.Model
         public CustomerVm Customer { get; set; }
         public BookVm Book { get; set; }
         public int AllocationId { get; set; }
-        public string? UpdatedBy { get; set; }
+    }
+
+    public class UpdateBorrowAllocationVm : CreateBorrowAllocationVm
+    {
+        public int AllocationId { get; set; }
     }
 }

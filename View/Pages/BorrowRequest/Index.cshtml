@@ -20,19 +20,16 @@
             <table class="table table-striped border">
                 <tr class="table-secondary">
                     <th>
+                        <label asp-for="Requests.FirstOrDefault().Customer.User.UserName"></label>
+                    </th>
+                    <th>
                         <label asp-for="Requests.FirstOrDefault().StartDate"></label>
                     </th>
                     <th>
                         <label asp-for="Requests.FirstOrDefault().EndDate"></label>
                     </th>
                     <th>
-                        <label asp-for="Requests.FirstOrDefault().RequestComments"></label>
-                    </th>
-                    <th>
                         <label asp-for="Requests.FirstOrDefault().Approved"></label>
-                    </th>
-                    <th>
-                        <label asp-for="Requests.FirstOrDefault().DateRequested"></label>
                     </th>
                 </tr>
                 
@@ -44,6 +41,12 @@
                         </td>
                         <td>
                             @item.StartDate
+                        </td>
+                        <td>
+                            @item.EndDate
+                        </td>
+                        <td>
+                            @item.Approved
                         </td>
                         
                         <td>

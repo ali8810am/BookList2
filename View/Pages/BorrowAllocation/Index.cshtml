@@ -23,36 +23,45 @@
                     <th>
                         <label asp-for="Allocations.FirstOrDefault().IsReturned"></label>
                     </th>
+                   
                 </tr>
 
-                @foreach (var item in Model.Allocations)
+                @for (var i = 0; i < Model.Allocations.Count(); i++)
                 {
+                    <input asp-for="Allocations[i].AllocationId" type="hidden" />
+
                     <tr>
                         <td>
-                            @item.Book.Name
+                            @Model.Allocations[i].Book.Name
                         </td>
                         <td>
-                            @item.Customer.User.UserName
+                            @Model.Allocations[i].Customer.User.UserName
                         </td>
                         <td>
-                            @item.BorrowStartDate
+                            @Model.Allocations[i].BorrowStartDate
                         </td>
                         <td>
-                            @item.BorrowEndDate
+                            @Model.Allocations[i].BorrowEndDate
                         </td>
                         <td>
-                            @item.IsReturned
+                        <div class="form-check">
+                            <input asp-for="Allocations[i].IsReturned" class="form-check-input" type="checkbox" id="Admin-@Model.Allocations[i].CustomerId">
+                            <label class="form-check-label" for="Admin-@Model.Allocations[i].CustomerId">
+                                allocate
+                            </label>
+                        </div>
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowAllocation/Details" asp-route-id="@Model.Allocations[i].AllocationId" class="btn btn-warning btn-sm">Details</a>
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowAllocation/Edit" asp-route-id="@Model.Allocations[i].AllocationId" class="btn btn-warning btn-sm">Edit</a>
+
                         </td>
 
-                        <td>
-                            <a asp-page="/BorrowAllocation/Details" asp-route-id="@item.AllocationId" class="btn btn-warning btn-sm">Details</a>
-                        </td>
-                        <td>
-                            <a asp-page="/BorrowAllocation/Edit" asp-route-id="@item.AllocationId" class="btn btn-warning btn-sm">Edit</a>
-
-                        </td>
                     </tr>
                 }
+                        <input type="submit" value="save" class="btn btn-outline-success" />
             </table>
         }
         else

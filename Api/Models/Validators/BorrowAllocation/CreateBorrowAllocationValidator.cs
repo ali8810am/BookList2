@@ -19,9 +19,6 @@ namespace Api.Models.Validators.BorrowAllocation
 
             RuleFor(r => r.BorrowStartDate)
                 .LessThan(r => r.BorrowEndDate).WithMessage("{PropertyName} must be before {ComparisonValue}");
-            RuleFor(r => r.DateReturned)
-                .GreaterThan(r => r.DateApproved)
-                .WithMessage("{PropertyName} must be after {ComparisonValue}");
 
             RuleFor(r => r.BookId)
                 .GreaterThan(0)

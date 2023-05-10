@@ -21,7 +21,6 @@ namespace Api.Models
         public bool IsReturned { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime? DateReturned { get; set; }
-        public string? CreatedBy { get; set; }
         public int RequestId { get; set; }
 
     }
@@ -29,15 +28,22 @@ namespace Api.Models
     public class BorrowAllocationDto:CreateBorrowAllocationDto
     {
         public int AllocationId { get; set; }
+        //public BookDto? Book { get; set; }
+        //public EmployeeDto? Employee { get; set; }
+        //public CustomerDto? Customer { get; set; } 
         public BookDto? Book { get; set; } = new BookDto();
-        public EmployeeDto? Employee { get; set; }=new EmployeeDto();
+        public EmployeeDto? Employee { get; set; } = new EmployeeDto();
         public CustomerDto? Customer { get; set; } = new CustomerDto();
-        public string? UpdatedBy { get; set; }
     }
 
     public class CreateBorrowAllocationValidatorDto
     {
         public int RequestId { get; set; }
         public List<string> Errors { get; set; }
+    }
+    public class GetBorrowAllocationDto
+    {
+        public int id { get; set; }
+        public List<string> includes { get; set; }
     }
 }

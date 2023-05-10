@@ -1,6 +1,8 @@
 ﻿using Api.ConstantParameters;
 using Api.Data;
+using Api.IRepository;
 using Api.Models.Identity;
+using Api.Responses;
 using Api.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +43,13 @@ namespace Api.Controllers
             var response = await _authManager.Register(userDto);
             return Ok(response);
 
+        }
+        [HttpPost]
+        [Route("existUser")]
+        public async Task<ExistUserResponse> ExistUser([FromBody]ExistUserDto user)
+        {
+
+            return await _authManager.ExistUser(user.UserName, user.Email,user.PhoneNumber);
         }
 
     }

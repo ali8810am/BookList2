@@ -22,7 +22,6 @@ namespace View.Model
         [StringLength(250, MinimumLength = 2)] public string RequestComments { get; set; }
         public bool Approved { get; set; }=false;
         public bool Cancelled { get; set; } = false;
-        public string? CreatedBy { get; set; }
         public int CustomerId { get; set; }
      
     }
@@ -30,7 +29,6 @@ namespace View.Model
     public class BorrowRequestVm : CreateBorrowRequestVm
     {
         public int RequestId { get; set; }
-        public string? UpdatedBy { get; set; }
         [ForeignKey("CustomerId")]
         public CustomerVm? Customer { get; set; }
         public BookVm? Book { get; set; }

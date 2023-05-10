@@ -12,6 +12,7 @@ using System.Reflection.Metadata;
 using Api.ConstantParameters;
 using Api.Models.Validators.Book;
 using X.PagedList;
+using Marvin.Cache.Headers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,11 +33,14 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetAllBooks")]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] QueryParameter? parameters)
         {
             var books = await _unitOfWork.Books.GetAll(parameters.RequestParameters, null, parameters.includes);
-
-            return Ok(_mapper.Map<IList<BookDto>>(books));
+            var bookDto=new List<BookDto>();
+            bookDto = _mapper.Map<List<BookDto>>(books);
+                return Ok(bookDto);
         }
         [HttpGet]
         [Route("GetFilteredBooks")]
@@ -51,7 +55,9 @@ namespace Api.Controllers
                      .Where(b => b.Name.ToLower().Contains(parameter.Author.ToLower()) || string.IsNullOrWhiteSpace(parameter.Name))
                      .ToPagedList(parameter.RequestParameters.PageNumber,
                          parameter.RequestParameters.PageSize);
-                return Ok(_mapper.Map<IList<BookDto>>(filteredBooks));
+                var bookDto = new List<BookDto>();
+                bookDto = _mapper.Map<List<BookDto>>(filteredBooks);
+                return Ok(bookDto);
             }
 
             var books = await _unitOfWork.Books.GetAll(parameter.RequestParameters, null, parameter.includes);
@@ -60,6 +66,8 @@ namespace Api.Controllers
 
         // GET api/<BooksController>/5
         [HttpGet("{id}")]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         public async Task<ActionResult<BookDto>> Get(int id, List<string>? includes = null)
         {
             var book = await _unitOfWork.Books.Get(b => b.Id == id);

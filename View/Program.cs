@@ -47,15 +47,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseAuthentication();
 app.UseCookiePolicy();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseMiddleware<RequestMiddleware>();
 
 app.UseRouting();
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
-//app.UseMiddleware<RequestMiddleware>();
 
 app.Run();

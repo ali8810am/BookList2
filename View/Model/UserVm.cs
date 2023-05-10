@@ -22,7 +22,7 @@ namespace View.Model
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-        [Required] public List<string> Roles { get; set; }
+         public List<string>? Roles { get; set; }
     }
 
     public class UserVm
@@ -51,14 +51,15 @@ namespace View.Model
     public class EmployeeVm:CreateEmployeeVm
     {
         public int EmployeeId { get; set; }
-      
+        public UserVm User { get; set; }
+
     }
 
     public class CreateEmployeeVm
     {
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public UserVm User { get; set; }
+  
         public DateTime DateHired { get; set; }
         public string Duty { get; set; }
     }

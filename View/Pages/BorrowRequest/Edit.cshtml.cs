@@ -34,7 +34,6 @@ namespace View.Pages.BorrowRequest
 
         public async Task<IActionResult> OnPost(int id)
         {
-            Request.UpdatedBy = _userService.GetCurrentUserName();
             if (ModelState.IsValid)
             {
                 var response = await _borrowRequestService.UpdateBorrowRequest(Request);

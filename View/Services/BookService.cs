@@ -68,8 +68,8 @@ namespace View.Services
 
         public async Task DeleteBook(int id)
         {
-            await _client.BooksDELETEAsync(id);
             AddBearerToken();
+            await _client.BooksDELETEAsync(id);
         }
     }
 }

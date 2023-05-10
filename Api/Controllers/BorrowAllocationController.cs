@@ -16,12 +16,13 @@ using Api.Models.Validators.BorrowAllocation;
 using Api.ConstantParameters;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Marvin.Cache.Headers;
 
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = $"{UserRoles.Admin},{UserRoles.Employee}")]
+    //[Authorize(Roles = UserRoles.Employee)]
     public class BorrowAllocationController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -43,11 +44,16 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetAllAllocations")]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         public async Task<ActionResult<IList<BorrowAllocationDto>>> GetAll(
            [FromQuery] QueryParameter parameter)
         {
             var allocations = await _unitOfWork.BorrowAllocations.GetAll(parameter.RequestParameters, null, parameter.includes);
-            var allocationsDto = _mapper.Map<IList<BorrowAllocationDto>>(allocations);
+            var allocationsDto = new List<BorrowAllocationDto>();
+            allocationsDto = _mapper.Map<List<BorrowAllocationDto>>(allocations);
+            if (parameter.includes == null)
+                return Ok(allocationsDto);
             if (parameter.includes.Contains("Customer"))
             {
                 foreach (var allocation in allocationsDto)
@@ -70,7 +76,9 @@ namespace Api.Controllers
         // GET: api/<BorrowAllocationsController>
         [HttpGet]
         [Route("GetAllFilteredAllocations")]
-        [Authorize(Roles = $"{UserRoles.Customer}")]
+        //[Authorize(Roles = $"{UserRoles.Customer}")]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = false)]
         public async Task<ActionResult<IList<BorrowAllocationDto>>> GetAll([FromQuery] BorrowAllocationQueryParameter? parameter)
         {
             //parameter.includes = new List<string> { "Book", "Customer", "Employee" };
@@ -79,78 +87,85 @@ namespace Api.Controllers
 
             if (parameter.CreatedBy != "")
             {
-                filteredAllocation.Where(b =>
+                filteredAllocation= filteredAllocation.Where(b =>
                     b.CreatedBy == parameter.CreatedBy || string.IsNullOrWhiteSpace(parameter.CreatedBy));
             }
 
             if (parameter.UpdatedBy != "")
             {
-                filteredAllocation.Where(b =>
+                filteredAllocation = filteredAllocation.Where(b =>
                     b.UpdatedBy == parameter.UpdatedBy || string.IsNullOrWhiteSpace(parameter.UpdatedBy));
             }
 
             if (parameter.CustomerId != null)
             {
-                filteredAllocation.Where(b =>
+                filteredAllocation = filteredAllocation.Where(b =>
                     b.CustomerId == parameter.CustomerId || string.IsNullOrWhiteSpace(parameter.CustomerId.ToString()));
             }
 
             if (parameter.EmployeeId != null)
             {
-                filteredAllocation.Where(b =>
+                filteredAllocation = filteredAllocation.Where(b =>
                     b.EmployeeId == parameter.EmployeeId || string.IsNullOrWhiteSpace(parameter.EmployeeId.ToString()));
             }
 
             if (parameter.BookId != null)
             {
-                filteredAllocation.Where(b =>
+                filteredAllocation = filteredAllocation.Where(b =>
                     b.BookId == parameter.BookId || string.IsNullOrWhiteSpace(parameter.BookId.ToString()));
             }
 
             var date = new DateTime(2000, 1, 1);
             if (parameter.BorrowStartDate != date)
             {
-                filteredAllocation.Where(b => b.BorrowStartDate.Date >= parameter.BorrowStartDate);
+                filteredAllocation = filteredAllocation.Where(b => b.BorrowStartDate.Date >= parameter.BorrowStartDate);
             }
 
             if (parameter.DateApproved != date)
             {
-                filteredAllocation.Where(b =>
+                filteredAllocation = filteredAllocation.Where(b =>
                     b.DateApproved.AddDays(1) >= parameter.DateApproved &&
                     b.DateApproved.AddDays(-1) <= parameter.DateApproved);
             }
 
             if (parameter.BorrowEndDate != date)
             {
-                filteredAllocation.Where(b => b.BorrowEndDate <= parameter.BorrowEndDate);
+                filteredAllocation = filteredAllocation.Where(b => b.BorrowEndDate <= parameter.BorrowEndDate);
             }
 
             if (parameter.IsReturned != null)
             {
-                filteredAllocation.Where(b => b.DateReturned >= parameter.DateReturned);
+                filteredAllocation = filteredAllocation.Where(b => b.IsReturned == parameter.IsReturned);
             }
 
             if (parameter.DateReturned != date)
             {
-                filteredAllocation.Where(b => b.IsReturned == parameter.IsReturned);
+                filteredAllocation = filteredAllocation.Where(b => b.DateReturned >= parameter.DateReturned);
             }
             filteredAllocation.ToPagedList(parameter.RequestParameters.PageNumber,
                 parameter.RequestParameters.PageSize);
-            var allocationsDto = _mapper.Map<IList<BorrowAllocationDto>>(filteredAllocation);
+            var allocationsDto = new List<BorrowAllocationDto>();
+            allocationsDto = _mapper.Map<List<BorrowAllocationDto>>(filteredAllocation);
+            if (parameter.includes == null)
+                return Ok(allocationsDto);
             if (parameter.includes.Contains("Customer"))
             {
                 foreach (var allocation in allocationsDto)
                 {
-                    allocation.Customer.User = _mapper.Map<UserDto>(_userService.GetUserByUserId(allocation.Customer.UserId));
+                    allocation.Customer.User =
+                        _mapper.Map<UserDto>(_userService.GetUserByUserId(allocation.Customer.UserId));
                 }
             }
+
             if (parameter.includes.Contains("Employee"))
             {
                 foreach (var allocation in allocationsDto)
                 {
-                    allocation.Employee.User = _mapper.Map<UserDto>(_userService.GetUserByUserId(allocation.Employee.UserId));
+                    allocation.Employee.User =
+                        _mapper.Map<UserDto>(_userService.GetUserByUserId(allocation.Employee.UserId));
                 }
             }
+
             return Ok(allocationsDto);
 
             //var books = await _unitOfWork.Books.GetAll(parameter.RequestParameters, null, parameter.includes);
@@ -160,20 +175,20 @@ namespace Api.Controllers
 
 
         // GET api/<BorrowAllocationsController>/5
-        [HttpGet("{id}")]
-        [Authorize(Roles = $"{UserRoles.Customer}")]
-        public async Task<ActionResult<BorrowAllocationDto>> Get(int id, List<string>? includes)
+        [HttpGet]
+        [Authorize(Roles = UserRoles.Customer)]
+        public async Task<ActionResult<BorrowAllocationDto>> Get(GetBorrowAllocationDto allocation)
         {
-            var borrowAllocation = await _unitOfWork.BorrowAllocations.Get(b => b.Id == id, includes);
+            var borrowAllocation = await _unitOfWork.BorrowAllocations.Get(b => b.Id == allocation.id, allocation.includes);
             if (borrowAllocation == null)
                 return NotFound();
             var allocationDto = _mapper.Map<BorrowAllocationDto>(borrowAllocation);
-            if (includes.Contains("Customer"))
+            if (allocation.includes.Contains("Customer"))
             {
 
                 allocationDto.Customer.User = _mapper.Map<UserDto>(_userService.GetUserByUserId(borrowAllocation.Customer.UserId));
             }
-            if (includes.Contains("Employee"))
+            if (allocation.includes.Contains("Employee"))
             {
 
                 allocationDto.Employee.User = _mapper.Map<UserDto>(_userService.GetUserByUserId(borrowAllocation.Employee.UserId));
@@ -201,8 +216,17 @@ namespace Api.Controllers
                 borrowAllocationDto.Remove(allocation);
             }
 
-            foreach (var borrowAllocation in borrowAllocationDto.Select(allocation => _mapper.Map<BorrowAllocation>(borrowAllocationDto)))
+            if (invalidRequests.Count != 0)
             {
+                response.Success = false;
+                response.InvalidRequests = invalidRequests;
+                response.Message = "Creation for some requests Failed";
+                return response;
+            }
+            foreach(var al in borrowAllocationDto)
+            {
+           
+               var borrowAllocation= _mapper.Map<BorrowAllocation>(al);
                 try
                 {
                     await _unitOfWork.BorrowAllocations.Add(borrowAllocation);
@@ -212,6 +236,8 @@ namespace Api.Controllers
                     bookForUpdate.IsInLibrary = false;
                     _unitOfWork.Books.Update(bookForUpdate);
                     var request = await _unitOfWork.BorrowRequests.Get(r => r.Id == borrowAllocation.RequestId);
+                    request.Customer = null;
+                    request.Book = null;
                     request.Approved = true;
                     _unitOfWork.BorrowRequests.Update(request);
                     await _unitOfWork.Save();
