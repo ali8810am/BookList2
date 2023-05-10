@@ -22,8 +22,9 @@ namespace Api.Models.Validators.BorrowAllocation
 
             RuleFor(r => r.BookId)
                 .GreaterThan(0)
-                .MustAsync(async (id, token) => {
-                    var bookExists = await _bookRepository.Exist(b => b.Id == id);
+                .MustAsync(async (id, token) =>
+                {
+                    var bookExists = await _bookRepository.Exist(b => b.Id == id&&b.IsInLibrary==true);
                     return bookExists;
                 })
                 .WithMessage("{PropertyName} does not exist.");
