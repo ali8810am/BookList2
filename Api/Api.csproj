@@ -27,9 +27,4 @@
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.1" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BookList.Domain\BookList.Domain.csproj" />
-    <ProjectReference Include="..\BookList.Persistance\BookList.Persistance.csproj" />
-  </ItemGroup>
-
 </Project>
