@@ -1,16 +1,7 @@
 ﻿using Api.ConstantParameters;
-<<<<<<< HEAD
 using Api.Models;
-=======
-using Api.Data;
-using Api.IRepository;
-using Api.Models.Identity;
-using Api.Responses;
->>>>>>> e31b9b8125159a0d7956dae5eec28b0187a1cf00
 using Api.Services;
 using AutoMapper;
-
-using BookList.Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
