@@ -1,0 +1,72 @@
+﻿@page
+@model View.Pages.BorrowAllocation.IndexModel
+@{
+}
+<div class="col-12 p-3 border mt-3 ">
+    <form method="post">
+        @if (Model.Allocations.Any())
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().Book.Name"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().Customer.User.UserName"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().BorrowStartDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().BorrowEndDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Allocations.FirstOrDefault().IsReturned"></label>
+                    </th>
+                   
+                </tr>
+
+                @for (var i = 0; i < Model.Allocations.Count(); i++)
+                {
+                    <input asp-for="Allocations[i].AllocationId" type="hidden" />
+
+                    <tr>
+                        <td>
+                            @Model.Allocations[i].Book.Name
+                        </td>
+                        <td>
+                            @Model.Allocations[i].Customer.User.UserName
+                        </td>
+                        <td>
+                            @Model.Allocations[i].BorrowStartDate
+                        </td>
+                        <td>
+                            @Model.Allocations[i].BorrowEndDate
+                        </td>
+                        <td>
+                        <div class="form-check">
+                            <input asp-for="Allocations[i].IsReturned" class="form-check-input" type="checkbox" id="Admin-@Model.Allocations[i].CustomerId">
+                            <label class="form-check-label" for="Admin-@Model.Allocations[i].CustomerId">
+                                allocate
+                            </label>
+                        </div>
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowAllocation/Details" asp-route-id="@Model.Allocations[i].AllocationId" class="btn btn-warning btn-sm">Details</a>
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowAllocation/Edit" asp-route-id="@Model.Allocations[i].AllocationId" class="btn btn-warning btn-sm">Edit</a>
+
+                        </td>
+
+                    </tr>
+                }
+                        <input type="submit" value="save" class="btn btn-outline-success" />
+            </table>
+        }
+        else
+        {
+            <p>There is no book to show. Please Enter Any Book</p>
+        }
+    </form>
+</div>

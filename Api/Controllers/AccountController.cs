@@ -1,5 +1,12 @@
 ﻿using Api.ConstantParameters;
+<<<<<<< HEAD
 using Api.Models;
+=======
+using Api.Data;
+using Api.IRepository;
+using Api.Models.Identity;
+using Api.Responses;
+>>>>>>> e31b9b8125159a0d7956dae5eec28b0187a1cf00
 using Api.Services;
 using AutoMapper;
 
@@ -14,79 +21,41 @@ namespace Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<ApiUser> _userManager;
-        private readonly SignInManager<ApiUser> _signInManager;
-        private readonly IMapper _mapper;
+     
         private readonly ILogger<AccountController> _logger;
         private readonly IAuthManager _authManager;
 
-        public AccountController(UserManager<ApiUser> userManager, SignInManager<ApiUser> signInManager, IMapper mapper, ILogger<AccountController> logger, IAuthManager authManager)
+        public AccountController(ILogger<AccountController> logger, IAuthManager authManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _mapper = mapper;
             _logger = logger;
             _authManager = authManager;
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto loginDto)
         {
+
             _logger.LogInformation($"login attemped for {loginDto.UserName}");
-            if (!ModelState.IsValid)
-                return BadRequest();
-            try
-            {
-                var result =
-                    await _authManager.ValidateUser(loginDto);
-                if (!result)
-                    return Unauthorized(loginDto);
-
-                return Accepted(new { Token = await _authManager.CreateToken() });
-
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"registration attemped for {loginDto.UserName}");
-
-                Console.WriteLine(e);
-                throw;
-            }
+            var response =await _authManager.Login(loginDto);
+            return Ok(response);
 
         }
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] UserDto userDto)
+        public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto userDto)
         {
             _logger.LogInformation($"registration attemped for {userDto.FirstName}  {userDto.LastName}");
-            //if (userDto.Roles==null)
-            userDto.Roles.Add(UserRoles.Admin);
-            if (!ModelState.IsValid)
-                return BadRequest();
-            try
-            {
-                var user = _mapper.Map<ApiUser>(userDto);
-                var result = await _userManager.CreateAsync(user, userDto.Password);
-                if (!result.Succeeded)
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(error.Code, error.Description);
-                    }
-                    return BadRequest(ModelState);
-                }
+            var response = await _authManager.Register(userDto);
+            return Ok(response);
 
-                await _userManager.AddToRolesAsync(user, userDto.Roles);
-                return Accepted();
+        }
+        [HttpPost]
+        [Route("existUser")]
+        public async Task<ExistUserResponse> ExistUser([FromBody]ExistUserDto user)
+        {
 
-            }
-            catch (Exception e)
-            {
-                _logger.LogInformation($"registration attemped for {userDto.FirstName}  {userDto.LastName}");
-                throw;
-            }
-
+            return await _authManager.ExistUser(user.UserName, user.Email,user.PhoneNumber);
         }
 
     }

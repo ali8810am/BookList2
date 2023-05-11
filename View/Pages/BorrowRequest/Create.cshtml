@@ -1,0 +1,58 @@
+﻿@page
+@model View.Pages.BorrowRequest.CreateModel
+@{
+}
+<br />
+<h2 class="text-enfo">Create New Book</h2>
+<hr />
+<table class="table table-striped border">
+    <tr class="table-secondary">
+        <th>
+            <label asp-for="BookVm.Name"></label>
+        </th>
+        <th>
+            <label asp-for="BookVm.Author"></label>
+        </th>
+    </tr>
+
+</table>
+<div class="border container" style="padding:30px">
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <input asp-for="Request.BookId" type="hidden" />
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Request.StartDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Request.StartDate" />
+                <span asp-validation-for="Request.StartDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Request.EndDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Request.EndDate" />
+                <span asp-validation-for="Request.EndDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Request.RequestComments"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Request.RequestComments" />
+                <span asp-validation-for="Request.RequestComments"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <input type="submit" value="save" class="btn btn-outline-success" />
+            <a class="btn btn-link" asp-page="Index">Back to Request list</a>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

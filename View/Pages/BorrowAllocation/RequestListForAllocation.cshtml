@@ -1,0 +1,88 @@
+﻿@page
+@model View.Pages.BorrowAllocation.RequestListForAllocationModel
+@{
+}
+<div class="container row p-0 m-0">
+    <div class="col-9">
+        <h2 class="text-info">BookList</h2>
+    </div>
+    <div class="col-3">
+        <a class="btn btn-info form-control text-light" asp-page="/Book/Create">
+            Create New Book
+        </a>
+    </div>
+
+</div>
+<div class="col-12 p-3 border mt-3 ">
+    <form method="post">
+        @if (Model.Requests.Any())
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().StartDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().EndDate"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().RequestComments"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().Approved"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().DateRequested"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().DateRequested"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Requests.FirstOrDefault().DateRequested"></label>
+                    </th>
+                </tr>
+
+                @for(var i=0 ;i<Model.Requests.Count();i++)
+                {
+                    <input asp-for="Requests[i].RequestId" type="hidden"/>
+                    <tr>
+                        <td>
+                            @Model.Requests[i].Customer.User.UserName
+                        </td>
+                        <td>
+                            @Model.Requests[i].StartDate
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input asp-for="Requests[i].Allocate" class="form-check-input" type="checkbox" id="Admin-@Model.Requests[i].CustomerId">
+                                <label class="form-check-label" for="Admin-@Model.Requests[i].CustomerId">
+                                    allocate
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input asp-for="Requests[i].Reject" class="form-check-input" type="checkbox" id="Admin-@Model.Requests[i].CustomerId">
+                                <label class="form-check-label" for="Admin-@Model.Requests[i].CustomerId">
+                                    reject
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <a asp-page="/BorrowAllocation/Create" asp-route-id="@Model.Requests[i].RequestId" class="btn btn-warning btn-sm">Change</a>
+                        </td>
+                        <td>
+                            <a asp-page-handler="Delete" asp-route-id="@Model.Requests[i].RequestId" class="btn btn-danger btn-sm">Reject</a>
+
+                        </td>
+                    </tr>   
+                }
+            </table>
+            <input type="submit" value="save" class="btn btn-outline-success" />
+        }
+        else
+        {
+                <p>There is no book to show. Please Enter Any Book</p>
+        }
+    </form>
+</div>
