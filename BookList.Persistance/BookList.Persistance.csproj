@@ -14,7 +14,6 @@
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\BookList.Domain\BookList.Domain.csproj" />
 		<ProjectReference Include="..\BookList.Persistance\BookList.Persistance.csproj" />
 	</ItemGroup>
 

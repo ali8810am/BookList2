@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using View.ConstantParameters
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,15 +25,32 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-page="/Privacy">Privacy</a>
                         </li>
+                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Booklist/Index">BookList</a>
+                            <a class="nav-link text-dark" asp-page="/Book/Index">Our Books</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole(UserRoles.Customer))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/User/Customer">Customer page</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(UserRoles.Employee))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/User/Employee">Customer page</a>
+                                </li>
+                            }
+                        }
                     </ul>
+                    <partial name="_LoginPartial"/>
                 </div>
             </div>
         </nav>

@@ -1,0 +1,47 @@
+﻿@page
+@model View.Pages.BorrowAllocation.EditModel
+@{
+}
+<br />
+<h2 class="text-enfo">Edit Book</h2>
+<hr />
+<div class="border container" style="padding:30px">
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="Allocation.DateApproved" type="hidden" />
+        <input asp-for="Allocation.BookId" type="hidden" />
+        <input asp-for="Allocation.CustomerId" type="hidden" />
+        <input asp-for="Allocation.EmployeeId" type="hidden" />
+
+
+
+
+
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Allocation.BorrowStartDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Allocation.BorrowStartDate" />
+                <span asp-validation-for="Allocation.BorrowStartDate"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4 text-right">
+                <label asp-for="Allocation.BorrowEndDate"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Allocation.BorrowEndDate" />
+                <span asp-validation-for="Allocation.BorrowEndDate"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <input type="submit" value="save" class="btn btn-outline-success" />
+            <a class="btn btn-link" asp-page="Index">Back to Request list</a>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
