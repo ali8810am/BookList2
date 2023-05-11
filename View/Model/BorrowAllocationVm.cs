@@ -5,6 +5,7 @@ namespace View.Model
 {
     public class CreateBorrowAllocationVm
     {
+
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime BorrowStartDate { get; set; }
