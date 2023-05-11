@@ -1,5 +1,13 @@
-
-using BookList.Infrastructure.Data;
+using Api;
+using Api.Data;
+using Api.IRepository;
+using Api.Middlewares;
+using Api.Profile;
+using Api.Repository;
+using Api.Services;
+using AspNetCoreRateLimit;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -7,12 +15,31 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(config =>
+{
+    config.CacheProfiles.Add("120SecondDuration", new CacheProfile
+    {
+        Duration = 120
+    });
+})
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+); 
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BookListConnectionString"));
+});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.ConfigureHttpCacheHeaders();
 builder.Services.ConfigureRateLimiting(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwaggerAuthenticationBearer();
+builder.Services.ConfigureIdentityServices(builder.Configuration);
 
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();

@@ -5,8 +5,7 @@ namespace View.Model
 {
     public class CreateBookVm
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         [Required(ErrorMessage ="Please enter books name")]
         [MaxLength(300)]
