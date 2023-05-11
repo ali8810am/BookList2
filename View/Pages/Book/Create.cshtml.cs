@@ -26,6 +26,7 @@ namespace View.Pages.Book
         }
         public async Task<IActionResult> OnPost()
         {
+            Book.CreateDate=DateTime.Now;
             if (ModelState.IsValid)
             {
                var response= await _bookService.CreateBook(Book);

@@ -24,12 +24,8 @@
                 <input asp-for="Book.Author" />
                 <span asp-validation-for="Book.Author"></span>
             </div>
-             <div class="col-4 text-right">
-                <label asp-for="Book.CreateDate"></label>
-            </div>
             <div class="col-6">
-                <input asp-for="Book.CreateDate" />
-                <span asp-validation-for="Book.CreateDate"></span>
+                <input asp-for="Book.CreateDate" type="hidden" />
             </div>
         </div>
         <div class="col-6">
