@@ -6,7 +6,7 @@ namespace Api.Models.Identity
     {
 
         [Required]
-        [StringLength(maximumLength: 15, MinimumLength = 5)]
+
         public string UserName { get; set; }
 
         [Required]
@@ -25,7 +25,9 @@ namespace Api.Models.Identity
 
     public class RegisterResponseDto
     {
-        public string UserId { get; set; }
+        public bool Success { get; set; } = false;
+        public string Errors { get; set; } = "";
+        public string UserId { get; set; } = "";
     }
     public class RegisterRequestDto:LoginRequestDto
     {

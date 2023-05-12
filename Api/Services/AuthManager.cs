@@ -8,6 +8,8 @@ using Api.Exceptions;
 using Api.IRepository;
 using Api.Models;
 using Api.Models.Identity;
+using Api.Models.Validators.Book;
+using Api.Models.Validators.UserValidator;
 using Api.Responses;
 using AutoMapper;
 using Azure.Core;
@@ -27,7 +29,7 @@ namespace Api.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AuthManager(IMapper mapper,IUnitOfWork unitOfWork, UserManager<ApiUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApiUser> signInManager, IConfiguration config)
+        public AuthManager(IMapper mapper, IUnitOfWork unitOfWork, UserManager<ApiUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApiUser> signInManager, IConfiguration config)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -132,70 +134,97 @@ namespace Api.Services
                 PhoneNumber = request.PhoneNumber,
                 EmailConfirmed = true
             };
-
-            var creationResult = await _userManager.CreateAsync(user, request.Password);
-
-            if (creationResult.Succeeded)
+            var response = new BaseCommandResponse();
+            var validator = new RegisterValidator();
+            var validationResult = await validator.ValidateAsync(request);
+            if (validationResult.IsValid)
             {
-                var validRoles = new List<string>();
-                foreach (var role in request.Roles)
+
+
+                var creationResult = await _userManager.CreateAsync(user, request.Password);
+
+                if (creationResult.Succeeded)
                 {
-                    switch (role.ToLower())
+                    var validRoles = new List<string>();
+                    foreach (var role in request.Roles)
                     {
-                        case UserRoles.User:
-                            validRoles.Add(UserRoles.User);
-                            break;
-                        case UserRoles.Admin:
-                            validRoles.Add(UserRoles.Admin);
-                            break;
-                        case UserRoles.Customer:
-                            validRoles.Add(UserRoles.Customer);
+                        switch (role.ToLower())
+                        {
+                            case UserRoles.User:
+                                validRoles.Add(UserRoles.User);
+                                break;
+                            case UserRoles.Admin:
+                                validRoles.Add(UserRoles.Admin);
+                                break;
+                            case UserRoles.Customer:
+                                validRoles.Add(UserRoles.Customer);
 
-                            break;
-                        case UserRoles.Employee:
-                            validRoles.Add(UserRoles.Employee);
-                            break;
-                        default:
-                            validRoles.Add(UserRoles.User);
-                            break;
+                                break;
+                            case UserRoles.Employee:
+                                validRoles.Add(UserRoles.Employee);
+                                break;
+                            default:
+                                validRoles.Add(UserRoles.User);
+                                break;
+                        }
                     }
-                }
-                foreach (var role in validRoles)
-                {
-                    var roleExist = await _roleManager.RoleExistsAsync(role);
-                    if (roleExist == false)
-                        await _roleManager.CreateAsync(new IdentityRole(role));
-                    var roleResult = await _userManager.AddToRoleAsync(user, role);
-                    if (!roleResult.Succeeded)
+                    foreach (var role in validRoles)
                     {
-                        await _userManager.DeleteAsync(_user);
-                        throw new BadRequestException("sorry. Please try again");
+                        try
+                        {
+                            var roleExist = await _roleManager.RoleExistsAsync(role);
+                            if (roleExist == false)
+                                await _roleManager.CreateAsync(new IdentityRole(role));
+                            var roleResult = await _userManager.AddToRoleAsync(user, role);
+                            if (!roleResult.Succeeded)
+                            {
+                                await _userManager.DeleteAsync(_user);
+                                return new RegisterResponseDto { Success = false,Errors = "sorry.Please try again" };
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            await _userManager.DeleteAsync(_user);
+                            throw new BadRequestException("sorry. Please try again");
+                        }
+                        
+
                     }
-                }
 
-                if (validRoles.Any(r => r == UserRoles.Customer))
-                {
+                    if (validRoles.Any(r => r == UserRoles.Customer))
+                    {
 
-                    var customer = new Customer { UserId = user.Id, MembershipRate = 1, User = null, DateMembered = DateTime.Now };
-                    await _unitOfWork.Customers.Add(customer);
+                        var customer = new Customer { UserId = user.Id, MembershipRate = 1, User = null, DateMembered = DateTime.Now };
+                        await _unitOfWork.Customers.Add(customer);
+                    }
+                    if (request.Roles.Any(r => r == UserRoles.Employee))
+                    {
+                        var employee = new Employee { UserId = user.Id, DateHired = DateTime.Now, Duty = "", User = null };
+                        await _unitOfWork.Employee.Add(employee);
+                    }
+                    await _unitOfWork.Save();
+                    return new RegisterResponseDto { UserId = user.Id ,Success = true};
                 }
-                if (request.Roles.Any(r => r == UserRoles.Employee))
+                else
                 {
-                    var employee = new Employee { UserId = user.Id, DateHired = DateTime.Now, Duty = "",User = null};
-                    await _unitOfWork.Employee.Add(employee);
+                    StringBuilder str = new StringBuilder();
+                    foreach (var err in creationResult.Errors)
+                    {
+                        str.AppendFormat("•{0}\n", err.Description);
+                    }
+
+                    return new RegisterResponseDto { Success = false, Errors = "sorry.Please try again. errors:"+str };
                 }
-                await _unitOfWork.Save();
-                return new RegisterResponseDto { UserId = user.Id };
             }
             else
             {
                 StringBuilder str = new StringBuilder();
-                foreach (var err in creationResult.Errors)
+                foreach (var err in validationResult.Errors)
                 {
-                    str.AppendFormat("•{0}\n", err.Description);
+                    str.AppendFormat("•{0}\n", err.ErrorMessage);
                 }
 
-                throw new BadRequestException($"{str}");
+                return new RegisterResponseDto { Success = false, Errors = "Please try again. errors:" + str };
             }
         }
         public ApiUser GetUserByUserId(string userId)
@@ -218,7 +247,7 @@ namespace Api.Services
 
         public async Task<bool> ExistUser(string userId)
         {
-            return await _userManager.Users.AnyAsync(u => u.Id==userId);
+            return await _userManager.Users.AnyAsync(u => u.Id == userId);
 
         }
 

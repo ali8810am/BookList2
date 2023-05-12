@@ -9,6 +9,7 @@ namespace View.Profile
         public MappingProfile()
         {
             CreateMap<UserRegisterVm, RegisterRequestDto>().ReverseMap();
+            CreateMap<RegisterResponseDto, RegisterResponseVm>().ReverseMap();
             CreateMap<UserVm, UserDto>().ReverseMap();
 
             CreateMap<BookDto, BookVm>()

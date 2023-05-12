@@ -78,4 +78,11 @@ namespace View.Model
         public DateTime DateMembered { get; set; }
         public int MembershipRate { get; set; }
     }
+
+    public class RegisterResponseVm
+    {
+        public bool Success { get; set; } = false;
+        public string Errors { get; set; } = "";
+        public string UserId { get; set; } = "";
+    }
 }

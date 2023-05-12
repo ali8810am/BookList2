@@ -7,7 +7,7 @@ namespace View.Contracts
     {
         Task<bool> Login(string userName, string password);
         Task Logout();
-        Task<bool> Register(UserRegisterVm user);
+        Task<RegisterResponseVm> Register(UserRegisterVm user);
         string GetCurrentUserName();
         string GetCurrentUserId();
         Task<ExistUserResponse> ExistUser(ExistUserDto user);

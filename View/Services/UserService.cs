@@ -63,15 +63,12 @@ namespace View.Services
             await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
-        public async Task<bool> Register(UserRegisterVm user)
+        public async Task<RegisterResponseVm> Register(UserRegisterVm user)
         {
             var registrationRequest = _mapper.Map<RegisterRequestDto>(user);
-            var response = await _client.RegisterAsync(registrationRequest);
-            if (string.IsNullOrEmpty(response.UserId))
-            {
-                return false;
-            }
-            return true;
+            var apiResponse = await _client.RegisterAsync(registrationRequest);
+            var response = _mapper.Map<RegisterResponseVm>(apiResponse);
+            return response;
         }
         public IList<Claim> ParseClaims(JwtSecurityToken tokenContent)
         {

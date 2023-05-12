@@ -67,9 +67,10 @@ namespace View.Pages.User
             }
             
             var returnUrl = Url.Content("~/");
-            var isCreated = await _userService.Register(RegisterVm);
-            if (isCreated)
+            var response = await _userService.Register(RegisterVm);
+            if (response.Success)
                 return LocalRedirect(returnUrl);
+            ModelState.AddModelError("",response.Errors);
             return Page();
 
         }
