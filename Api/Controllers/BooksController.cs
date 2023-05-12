@@ -47,21 +47,30 @@ namespace Api.Controllers
         public async Task<ActionResult<IList<BookDto>>> GetAll([FromQuery] BookQueryParameter parameter)
         {
 
-            if (parameter.Author != null || parameter.Name != null)
-            {
+            
                 var booksQuery = _unitOfWork.Books.GetFiltered(parameter.includes);
-                var filteredBooks = booksQuery
-                     .Where(b => b.Author.ToLower().Contains(parameter.Author.ToLower()) || string.IsNullOrWhiteSpace(parameter.Author))
-                     .Where(b => b.Name.ToLower().Contains(parameter.Author.ToLower()) || string.IsNullOrWhiteSpace(parameter.Name))
-                     .ToPagedList(parameter.RequestParameters.PageNumber,
+                if (parameter.Name!=null)
+                {
+                    booksQuery = booksQuery
+                        .Where(b => b.Name.ToLower().Contains(parameter.Name.ToLower()) ||
+                                    string.IsNullOrWhiteSpace(parameter.Author));
+                }
+                if (parameter.Author != null)
+                {
+                    booksQuery = booksQuery
+                        .Where(b => b.Author.ToLower().Contains(parameter.Author.ToLower()) ||
+                                    string.IsNullOrWhiteSpace(parameter.Author));
+                }
+                if (parameter.IsInLibrary != null)
+                {
+                    booksQuery = booksQuery
+                        .Where(b => b.IsInLibrary == parameter.IsInLibrary);
+                }
+                var filteredBooks = booksQuery.ToPagedList(parameter.RequestParameters.PageNumber,
                          parameter.RequestParameters.PageSize);
                 var bookDto = new List<BookDto>();
                 bookDto = _mapper.Map<List<BookDto>>(filteredBooks);
                 return Ok(bookDto);
-            }
-
-            var books = await _unitOfWork.Books.GetAll(parameter.RequestParameters, null, parameter.includes);
-            return Ok(_mapper.Map<IList<BookDto>>(books));
         }
 
         // GET api/<BooksController>/5

@@ -58,12 +58,12 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, bool? isInLibrary, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, bool? isInLibrary, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -651,15 +651,15 @@ namespace  View.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, bool? isInLibrary, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes)
         {
-            return GetFilteredBooksAsync(name, author, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
+            return GetFilteredBooksAsync(name, author, isInLibrary, requestParameters_PageNumber, requestParameters_PageSize, includes, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BookDto>> GetFilteredBooksAsync(string name, string author, bool? isInLibrary, int? requestParameters_PageNumber, int? requestParameters_PageSize, System.Collections.Generic.IEnumerable<string> includes, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Books/GetFilteredBooks?");
@@ -670,6 +670,10 @@ namespace  View.Services.Base
             if (author != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("Author") + "=").Append(System.Uri.EscapeDataString(ConvertToString(author, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isInLibrary != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("IsInLibrary") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isInLibrary, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             if (requestParameters_PageNumber != null)
             {

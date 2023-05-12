@@ -4,17 +4,20 @@
 @model View.Pages.Book.IndexModel
 @{
 }
-<div class="container row p-0 m-0">
-    <div class="col-9">
-        <h2 class="text-info">BookList</h2>
-    </div>
-    <div class="col-3">
-        <a class="btn btn-info form-control text-light" asp-page="/Book/Create">
-            Create New Book
-        </a>
-    </div>
+@if (User.IsInRole(UserRoles.Employee))
+{
+    <div class="container row p-0 m-0">
+        <div class="col-9">
+            <h2 class="text-info">BookList</h2>
+        </div>
+        <div class="col-3">
+            <a class="btn btn-info form-control text-light" asp-page="/Book/Create">
+                Create New Book
+            </a>
+        </div>
 
-</div>
+    </div>
+}
 <div class="col-12 p-3 border mt-3 ">
     <form method="post">
         @if (Model.Books.Any())
@@ -27,6 +30,9 @@
                     <th>
                         <label asp-for="Books.FirstOrDefault().Author"></label>
                     </th>
+                    <th>
+                        <label asp-for="Books.FirstOrDefault().IsInLibrary"></label>
+                    </th>
                 </tr>
                 
                     @foreach(var item in Model.Books)
@@ -37,6 +43,9 @@
                          </td>
                          <td>
                              @item.Author
+                         </td>
+                         <td>
+                             @item.IsInLibrary
                          </td>
                          @if (User.IsInRole(UserRoles.Customer))
                          {

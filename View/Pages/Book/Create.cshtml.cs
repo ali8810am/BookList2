@@ -23,10 +23,11 @@ namespace View.Pages.Book
         public CreateBookVm Book { get; set; }
         public void OnGet()
         {
+            Book = new CreateBookVm();
         }
         public async Task<IActionResult> OnPost()
         {
-            Book.CreateDate=DateTime.Now;
+           
             if (ModelState.IsValid)
             {
                var response= await _bookService.CreateBook(Book);

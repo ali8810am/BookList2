@@ -54,10 +54,6 @@
                         <td>
                             <a asp-page="/BorrowAllocation/Details" asp-route-id="@Model.Allocations[i].AllocationId" class="btn btn-warning btn-sm">Details</a>
                         </td>
-                        <td>
-                            <a asp-page="/BorrowAllocation/Edit" asp-route-id="@Model.Allocations[i].AllocationId" class="btn btn-warning btn-sm">Edit</a>
-
-                        </td>
 
                     </tr>
                 }
@@ -66,7 +62,7 @@
         }
         else
         {
-            <p>There is no book to show. Please Enter Any Book</p>
+            <p>There is no allocation to show</p>
         }
     </form>
 </div>

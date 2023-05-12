@@ -24,6 +24,12 @@ namespace View.Services
            return _mapper.Map<List<BookVm>>(books);
         }
 
+        public async Task<List<BookVm>> GetBooksInLibrary()
+        {
+            var books = await _client.GetFilteredBooksAsync(null, null, true, null, null, null);
+            return _mapper.Map<List<BookVm>>(books);
+        }
+
         public async Task<BookVm> GetBook(int id)
         {
             var book = await _client.BooksGETAsync(id,null);

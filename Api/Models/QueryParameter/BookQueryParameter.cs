@@ -8,5 +8,7 @@ namespace Api.Models.QueryParameter
         public string? Name { get; set; }
         [CanBeNull]
         public string? Author { get; set; }
+
+        public bool? IsInLibrary { get; set; }
     }
 }
