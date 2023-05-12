@@ -69,7 +69,7 @@ namespace Api.Controllers
         // GET: api/<BorrowRequestsController>
         [HttpGet]
         [Route("GetFilteredRequests")]
-        //[Authorize(Roles = $"{UserRoles.Employee}")]
+        [Authorize(Roles = UserRoles.Employee)]
         //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
         //[HttpCacheValidation(MustRevalidate = false)]
         public ActionResult<IList<BorrowRequestDto>> Get([FromQuery] BorrowRequestQueryParameter? parameter)
@@ -201,7 +201,7 @@ namespace Api.Controllers
 
         // DELETE api/<BorrowRequestsController>/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = $"{UserRoles.Employee}")]
+        [Authorize(Roles = UserRoles.Employee)]
         public async Task Delete(int id)
         {
             if (!await _unitOfWork.BorrowRequests.Exist(b => b.Id == id))

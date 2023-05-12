@@ -101,6 +101,7 @@ namespace View.Services
 
         public async Task DeleteBorrowRequest(int id)
         {
+            AddBearerToken();
             await _client.BorrowRequestDELETEAsync(id);
         }
     }

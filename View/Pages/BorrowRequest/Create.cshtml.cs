@@ -36,6 +36,8 @@ namespace View.Pages.BorrowRequest
             var book = await _bookService.GetBook(bookId);
             BookVm = _mapper.Map<CreateBookVm>(book);
             Request.BookId = bookId;
+            Request.StartDate=DateTime.Now;
+            Request.EndDate = Request.StartDate.AddDays(1);
         }
 
         public async Task<IActionResult> OnPost()

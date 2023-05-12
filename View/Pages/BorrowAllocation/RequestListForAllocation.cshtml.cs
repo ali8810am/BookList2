@@ -36,6 +36,7 @@ namespace View.Pages.BorrowAllocation
 
         public async Task<IActionResult> OnPost()
         {
+            var rejects= Requests.Where(r => r.Reject == true).ToList();
             Requests = Requests.Where(r => r.Allocate == true).ToList();
             var allocationList = new List<CreateBorrowAllocationVm>();
             foreach (var req in Requests)
@@ -63,11 +64,10 @@ namespace View.Pages.BorrowAllocation
             }
             //Requests = Requests.Where(r => r.Allocate == true||r.Reject==true).ToList();
 
-            //foreach (var req in Requests)
-            //{
-            //    await _borrowRequestService.DeleteBorrowRequest(req.RequestId);
-
-            //}
+            foreach (var req in rejects)
+            {
+                await _borrowRequestService.DeleteBorrowRequest(req.RequestId);
+            }
 
             return LocalRedirect("/");
         }
