@@ -31,8 +31,9 @@ namespace Api.Controllers
         private readonly ICustomerRepository _customerRepository;
         private readonly IBookRepository _bookRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IBorrowRequestRepository _borrowRequestRepository;
 
-        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper, IAuthManager userService, ICustomerRepository customerRepository, IBookRepository bookRepository, IEmployeeRepository employeeRepository)
+        public BorrowAllocationController(IUnitOfWork unitOfWork, IMapper mapper, IAuthManager userService, ICustomerRepository customerRepository, IBookRepository bookRepository, IEmployeeRepository employeeRepository, IBorrowRequestRepository borrowRequestRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -40,6 +41,7 @@ namespace Api.Controllers
             _customerRepository = customerRepository;
             _bookRepository = bookRepository;
             _employeeRepository = employeeRepository;
+            _borrowRequestRepository = borrowRequestRepository;
         }
 
         [HttpGet]
@@ -87,7 +89,7 @@ namespace Api.Controllers
 
             if (parameter.CreatedBy != "")
             {
-                filteredAllocation= filteredAllocation.Where(b =>
+                filteredAllocation = filteredAllocation.Where(b =>
                     b.CreatedBy == parameter.CreatedBy || string.IsNullOrWhiteSpace(parameter.CreatedBy));
             }
 
@@ -223,10 +225,10 @@ namespace Api.Controllers
                 response.Message = "Creation for some requests Failed";
                 return response;
             }
-            foreach(var al in borrowAllocationDto)
+            foreach (var al in borrowAllocationDto)
             {
-           
-               var borrowAllocation= _mapper.Map<BorrowAllocation>(al);
+
+                var borrowAllocation = _mapper.Map<BorrowAllocation>(al);
                 try
                 {
                     await _unitOfWork.BorrowAllocations.Add(borrowAllocation);
@@ -283,6 +285,7 @@ namespace Api.Controllers
                 var bookForUpdate = _mapper.Map<Book>(book);
                 if (allocate.IsReturned)
                 {
+                    await _borrowRequestRepository.Delete(allocate.RequestId);
                     bookForUpdate.DateBackToLibrary = allocate.DateReturned;
                     bookForUpdate.IsInLibrary = true;
                 }
@@ -290,7 +293,6 @@ namespace Api.Controllers
                 {
                     bookForUpdate.DateBackToLibrary = allocate.BorrowEndDate;
                 }
-
                 _unitOfWork.Books.Update(bookForUpdate);
                 await _unitOfWork.Save();
             }

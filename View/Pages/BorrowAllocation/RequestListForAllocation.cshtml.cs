@@ -69,7 +69,7 @@ namespace View.Pages.BorrowAllocation
                 await _borrowRequestService.DeleteBorrowRequest(req.RequestId);
             }
 
-            return LocalRedirect("/");
+            return LocalRedirect("/BorrowAllocation/Index");
         }
     }
 }
